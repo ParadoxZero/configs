@@ -3,7 +3,7 @@ import platform
 from pathlib import Path
 from typing import override
 
-from tools.shell import Result, Run
+from tools.shell import Run
 import tools.output as output
 
 class OSType(enum.Enum):
