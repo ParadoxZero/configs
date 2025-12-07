@@ -23,7 +23,7 @@ SOFTWARE.
 """
 from pathlib import Path
 import shutil
-from tools.os import get_os 
+from tools.os import OSType, get_os 
 import tools.output as output
 
 def recursive_link(source_dir: Path, target_dir: Path):
@@ -41,6 +41,13 @@ def recursive_link(source_dir: Path, target_dir: Path):
 
     target_dir.symlink_to(source_dir, target_is_directory=True)
 
+def link(source: Path, target: Path):
+    output.Info(f"Linking {source} to {target}")
+    if target.exists():
+        output.Info("Removing exisiting file.")
+        target.unlink()
+    target.symlink_to(source)
+
 def main():
     os = get_os()
     output.Info(f"Detected platform - {os.name()}")
@@ -57,6 +64,11 @@ def main():
     output.Info("Configuring NeoVim")
     recursive_link(root / "configs" / "nvim", os.get_nvim_path())
     output.Good("Configuring NeoVim ...OK")
+    
+    if os.Type != OSType.WIN:
+        output.Info("Configuring Tmux")
+        link(root / ".tmux.conf", os.get_tmux_conf_path())
+        output.Good("Configuring Tmux ...Ok")
 
 if __name__ == "__main__":
     main()
