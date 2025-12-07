@@ -49,10 +49,14 @@ def main():
         return 
     here = Path(__file__).resolve()
     root = here.parent
+    
     output.Info("Configuring nushell")
     recursive_link(root / "configs" / "nushell", os.get_nushell_path())
     output.Good("Configuring nushell ...OK")
     
+    output.Info("Configuring NeoVim")
+    recursive_link(root / "configs" / "nvim", os.get_nvim_path())
+    output.Good("Configuring NeoVim ...OK")
 
 if __name__ == "__main__":
     main()
