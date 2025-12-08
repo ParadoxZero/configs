@@ -57,7 +57,7 @@ class Win(OS):
            "winget install junegunn.fzf",
            "winget install ajeetdsouza.zoxide",
            "winget install  Python.Python.3.13",
-           "winget install  Rustlang.Rustup",
+           "winget install  Rustlang.Rustup --include-unknown",
            "winget install JesseDuffield.lazygit",
         ]
         for cmd in deps:
