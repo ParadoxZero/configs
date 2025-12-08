@@ -25,6 +25,7 @@ from pathlib import Path
 import shutil
 from tools.os import OSType, get_os 
 import tools.output as output
+import argparse
 
 def recursive_link(source_dir: Path, target_dir: Path):
     # Create target is not exists, no-op if already present
@@ -49,11 +50,19 @@ def link(source: Path, target: Path):
     target.symlink_to(source)
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--skip-deps",
+        action="store_true",
+        help="Skip installing dependencies"
+    )
+    args = parser.parse_args()
+
     os = get_os()
     output.Info(f"Detected platform - {os.name()}")
-
-    if not os.install_dependencies():
-        return 
+    if not args.skip_deps:
+        if not os.install_dependencies():
+            return 
     here = Path(__file__).resolve()
     root = here.parent
     
