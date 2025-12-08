@@ -53,6 +53,7 @@ class Win(OS):
     def install_dependencies(self)->bool:
         deps = [ 
            "winget install  Nushell.Nushell",
+           "winget install Neovim.Neovim",
            "winget install BurntSushi.ripgrep.MSVC",
            "winget install junegunn.fzf",
            "winget install ajeetdsouza.zoxide",
@@ -63,8 +64,9 @@ class Win(OS):
         for cmd in deps:
             if not Run(cmd):
                 output.Bad(f"{cmd}...Failed")
-                break
+                continue
             output.Good(f"{cmd} ...OK")
+        return True
             
 class Linux(OS):
     def __init__(self ) -> None:

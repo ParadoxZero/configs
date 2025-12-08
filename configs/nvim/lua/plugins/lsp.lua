@@ -1,7 +1,7 @@
 return {
   -- Mason: LSP installer
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {},
     config = function()
       require("mason").setup({
