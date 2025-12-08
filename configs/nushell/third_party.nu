@@ -21,3 +21,47 @@ def frg [$query] { rg --files-with-matches $query | fzf --preview "batcat {}" }
 def fnv [$query] { fzf -q $query | nvim $in }
 alias rcpp =  rg -tcpp 
 alias rjs =  rg -tjs 
+
+#
+# Kubernetes utils
+#
+
+alias kget = kubectl get
+alias kpods = kubectl get pods --all-namespaces
+def klogs [$pod] {
+  
+  let pod_details = kubectl get pods --all-namespaces -o json 
+      | from json 
+      | get items 
+      | where {|x| $x.metadata.name | str contains $pod} 
+      | first
+  kubectl logs -n $pod_details.metadata.namespace -f $pod_details.metadata.name
+}
+
+#
+# Quality of Life shortcuts to make development easier
+#
+
+let CR_DIR = '~/cr/src/'
+
+def set_cr_root [] {
+  let CR_DIR = (pwd)
+}
+
+alias e = z $CR_DIR
+alias eod = z ($CR_DIR | path join "out" "Debug")
+alias eor = z ($CR_DIR | path join "out" "Release")
+alias eow = z ($CR_DIR | path join "out" "win")
+
+alias ac = autoninja chrome
+alias aclow = autoninja chrome -j 300
+alias a = autoninja 
+
+alias gen_clangd = vpython3 "tools/clang/scripts/generate_compdb.py" -o "compile_commands.json" -p
+
+def ssh_to [$cmd] {
+  if $cmd == "infra" {
+    ssh sidhin@10.192.140.65
+  }
+}
+

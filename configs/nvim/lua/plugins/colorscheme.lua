@@ -11,9 +11,9 @@ return {
     priority = 1000,
     config = function()
       require("cyberdream").setup({
-        transparent = false,
+        transparent = true,
         varient = "auto",
-        saturation = 0.8
+        -- saturation = 0.8
       })
       vim.cmd [[colorscheme cyberdream]]
     end,

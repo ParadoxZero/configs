@@ -57,8 +57,9 @@ return {
         cmd = {
           "clangd",
           "--background-index",
-          "--cross-file-rename",
-          "--clang-tidy",
+          "--enable-config",
+          "--compile-commands-dir=" .. vim.fn.getcwd() ,
+
         },
         init_options = {
           usePlaceholders = true,

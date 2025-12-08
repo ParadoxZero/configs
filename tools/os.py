@@ -143,8 +143,7 @@ class Linux(OS):
         if not result:
             output.Bad("Failed to install rust toolchain")
             return False
-        if not self.__install_nushell():
-            return False
+        self.__install_nushell()
         self.__install_lazygit()
         output.Good("Installing dependencies ...OK")
         return True

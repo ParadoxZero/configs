@@ -10,9 +10,9 @@ $env.config.edit_mode = 'vi'
 # do not use alias in the path e.g. ~. Add absolute
 # paths
 
-let custom_paths = []
+mut custom_paths = []
 if $nu.os-info.name == "linux" {
-  let custom_paths = ($custom_paths | append [
+  $custom_paths = ($custom_paths | append [
     "/home/sidhin/depot_tools",
     "/home/sidhin/.npm-global/bin/",
     "/home/sidhin/.cargo/bin",
