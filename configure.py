@@ -43,7 +43,7 @@ def recursive_link(source_dir: Path, target_dir: Path):
 
 def link(source: Path, target: Path):
     output.Info(f"Linking {source} to {target}")
-    if target.exists():
+    if target.exists() or target.is_symlink():
         output.Info("Removing exisiting file.")
         target.unlink()
     target.symlink_to(source)
@@ -67,7 +67,7 @@ def main():
     
     if os.Type != OSType.WIN:
         output.Info("Configuring Tmux")
-        link(root / ".tmux.conf", os.get_tmux_conf_path())
+        link(root / "configs" / ".tmux.conf", os.get_tmux_conf_path())
         output.Good("Configuring Tmux ...Ok")
 
 if __name__ == "__main__":

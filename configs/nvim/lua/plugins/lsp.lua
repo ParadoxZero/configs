@@ -99,6 +99,7 @@ return {
       vim.lsp.enable("clangd")
       vim.lsp.enable("emmylua_ls")
       vim.lsp.enable("pyright")
+      vim.lsp.enable('nushell')
 
       -- local capabilities = vim.lsp.protocol.make_client_capabilities()
       -- local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}

@@ -3,6 +3,8 @@ require("config.keymaps")
 
 vim.g.mapleader = " "
 vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.cursorline = true
 
 -- Tabs
 vim.opt.tabstop = 2
@@ -15,7 +17,7 @@ vim.opt.wrap = false
 
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
-
+vim.opt.smartcase = true
 vim.opt.shell = 'nu'
 
 vim.diagnostic.config({

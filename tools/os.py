@@ -2,6 +2,7 @@ import enum
 import platform
 from pathlib import Path
 from typing import override
+import requests
 
 from tools.shell import Run
 import tools.output as output
@@ -50,8 +51,21 @@ class Win(OS):
 
     @override
     def install_dependencies(self)->bool:
-        raise NotImplementedError()
-    
+        deps = [ 
+           "winget install  Nushell.Nushell",
+           "winget install BurntSushi.ripgrep.MSVC",
+           "winget install junegunn.fzf",
+           "winget install ajeetdsouza.zoxide",
+           "winget install  Python.Python.3.13",
+           "winget install  Rustlang.Rustup",
+           "winget install JesseDuffield.lazygit",
+        ]
+        for cmd in deps:
+            if not Run(cmd):
+                output.Bad(f"{cmd}...Failed")
+                break
+            output.Good(f"{cmd} ...OK")
+            
 class Linux(OS):
     def __init__(self ) -> None:
         config_dir = Path.home() / ".config"
@@ -80,6 +94,34 @@ class Linux(OS):
             output.Info("Non-fatal failure, continuing...")
         return True
 
+    def __install_lazygit(self):
+        output.Info("Fetching latest version of lazygit")
+        latest_lazygit = requests.get("https://api.github.com/repos/jesseduffield/lazygit/releases/latest").json()
+        tag_name = latest_lazygit["tag_name"].lstrip("v")
+        output.Info(f"Found - lazygit v{tag_name}")
+        output.Info(f"Downloading lazygit to ~/toolchain")
+        download_root = Path.home() / "toolchain"
+        download_root.mkdir(exist_ok=True)
+        lazygit_archive_path = download_root / f"lazygit-{tag_name}.tar.gz"
+        if not lazygit_archive_path.exists():
+            url = f"https://github.com/jesseduffield/lazygit/releases/download/v{tag_name}/lazygit_{tag_name}_Linux_x86_64.tar.gz"
+            r = requests.get(url, stream=True)
+            with open(lazygit_archive_path, "wb") as f:
+                for chunk in r.iter_content(8192):
+                    f.write(chunk)
+        else:
+            output.Info("Latest lazygit already downloaded ...Skiping")
+
+        output.Info("Extracting lazygit")
+        if not Run(f"tar xf {lazygit_archive_path} lazygit"):
+            output.Bad("Failed to extract Lazygit. Install Manually...")
+            return
+        output.Info("Placing lazygit")
+        if not Run(f"sudo install {download_root / "lazygit"} -D -t /usr/local/bin"):
+            output.Bad("Failed to place lazygit")
+            return
+        output.Good("Installed Lazygit")
+
     @override
     def install_dependencies(self) -> bool:
         deps = [
@@ -101,6 +143,7 @@ class Linux(OS):
             return False
         if not self.__install_nushell():
             return False
+        self.__install_lazygit()
         output.Good("Installing dependencies ...OK")
         return True
 
