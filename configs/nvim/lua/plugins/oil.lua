@@ -34,6 +34,7 @@ return {
 					max_width = 0.8,
 					max_height = 0.6,
 					border = "rounded",
+          preview_split = "right",
 					-- optionally override the oil buffers window title with custom function: fun(winid: integer): string
 					get_win_title = function(_winid)
 						return "Oil"
