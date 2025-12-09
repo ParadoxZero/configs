@@ -67,12 +67,12 @@ return {
           clangdFileStatus = true,
         },
         capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          -- Enable inlay hints for type hints
-          if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-          end
-        end,
+        -- on_attach = function(client, bufnr)
+        --   -- Enable inlay hints for type hints
+        --   if client.server_capabilities.inlayHintProvider then
+        --     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+        --   end
+        -- end,
       })
       vim.lsp.config("emmylua_ls", {
         -- Make the server aware of Neovim runtime files

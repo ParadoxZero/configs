@@ -33,6 +33,9 @@ class OS:
     def get_tmux_conf_path(self):
         return Path.home() / ".tmux.conf"
 
+    def get_tmux_plugin_path(self):
+        return self.ConfigDir / "tmux"
+
     def install_dependencies(self)->bool:
         raise NotImplementedError()
 

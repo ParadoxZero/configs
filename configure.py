@@ -77,6 +77,7 @@ def main():
     if os.Type != OSType.WIN:
         output.Info("Configuring Tmux")
         link(root / "configs" / ".tmux.conf", os.get_tmux_conf_path())
+        recursive_link(root / "configs" / "tmux", os.get_tmux_plugin_path())
         output.Good("Configuring Tmux ...Ok")
 
 if __name__ == "__main__":

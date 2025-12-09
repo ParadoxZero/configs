@@ -13,6 +13,9 @@ return {
       require("cyberdream").setup({
         transparent = true,
         varient = "auto",
+        italic_comments = true,
+        terminal_colors = true,
+        hide_fillchars = false,
         -- saturation = 0.8
       })
       vim.cmd [[colorscheme cyberdream]]
