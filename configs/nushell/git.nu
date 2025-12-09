@@ -20,3 +20,26 @@ def rebase_branch [] {
     git fetch origin main;
     git rebase FETCH_HEAD;
 }
+
+def print_git_user [] {
+  git config user.email 
+  git config user.name
+}
+
+def git_email [$email] {
+  git config --worktree user.email $email
+  echo "Updated to - "
+  print_git_user 
+}
+
+def git_id [$type] {
+  if $type == "versa" {
+    git_email "sidhin.t@versa-networks.com"
+  }
+  if $type == "gmail" {
+    git_email "sidhin.thomas@gmail.com" 
+  }
+  if $type == "outlook" {
+    git_email "thomas.sidhin@outlook.com"
+  }
+}
