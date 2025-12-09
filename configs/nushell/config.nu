@@ -5,6 +5,43 @@
 $env.config.show_banner = false
 $env.EDITOR = 'nvim'
 $env.config.edit_mode = 'vi'
+$env.config.buffer_editor = 'nvim'
+# $env.config.history.isolation = true
+$env.config.history.file_format = "sqlite"
+
+
+## Prompt configuration ##
+# $env.PROMPT_COMMAND = {|| }
+# When in normal vi mode:
+$env.PROMPT_INDICATOR_VI_NORMAL = ": "
+# When in vi insert-mode:
+$env.PROMPT_INDICATOR_VI_INSERT = "> "
+$env.PROMPT_COMMAND_RIGHT = {|| date now | format date "%r" }
+
+# Custom prompt 
+# Abbrevate $home to ~
+# Append git branch if exists
+def create-prompt [] {
+    mut current = $env.PWD
+    if $current == $nu.home-path {
+      $current = "~"
+    } else if ($current | str starts-with $nu.home-path) {
+      $current = $current | path relative-to $nu.home-path
+      $current = $"~/($current)"
+    } 
+
+    let current = $"\e[1m($current)(ansi reset)"
+
+    try {
+      let b = (git rev-parse --abbrev-ref HEAD err> /dev/null)
+       $"($current) [($b | str trim)] "
+    } catch {
+       $"($current)" 
+    }
+}
+
+$env.PROMPT_COMMAND = { create-prompt }
+
 
 # Add any directory to be included in path here
 # do not use alias in the path e.g. ~. Add absolute
