@@ -6,8 +6,8 @@ $env.config.show_banner = false
 $env.EDITOR = 'nvim'
 $env.config.edit_mode = 'vi'
 $env.config.buffer_editor = 'nvim'
-# $env.config.history.isolation = true
 $env.config.history.file_format = "sqlite"
+$env.config.history.isolation = true
 
 
 ## Prompt configuration ##
