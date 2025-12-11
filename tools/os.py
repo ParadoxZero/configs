@@ -134,6 +134,7 @@ class Linux(OS):
                 "ripgrep",
                 "zoxide",
                 "rustup",
+                "sqlite3",
         ]
         output.Info("Installing dependencies ...Start")
         if not Run("sudo apt update"):

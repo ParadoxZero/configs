@@ -18,16 +18,23 @@ vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.smartcase = true
-vim.opt.shell = 'nu'
+vim.opt.shell = "nu"
 
 vim.diagnostic.config({
-  virtual_text = true,
+	virtual_text = true,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.mojom",
+	callback = function()
+		vim.bo.filetype = "idl"
+	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.linebreak = true   -- optional: break on words, not characters
-  end,
+	pattern = "markdown",
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true -- optional: break on words, not characters
+	end,
 })

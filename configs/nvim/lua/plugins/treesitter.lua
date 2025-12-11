@@ -5,7 +5,7 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				-- list of parsers to install
-				ensure_installed = { "lua", "python", "nu", "c", "cpp", "json", "bash" },
+				ensure_installed = { "lua", "python", "nu", "c", "cpp", "json", "bash", "gn", "idl" },
 
 				-- enable syntax highlighting
 				highlight = { enable = true },

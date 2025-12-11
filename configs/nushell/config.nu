@@ -13,9 +13,9 @@ $env.config.history.isolation = true
 ## Prompt configuration ##
 # $env.PROMPT_COMMAND = {|| }
 # When in normal vi mode:
-$env.PROMPT_INDICATOR_VI_NORMAL = ": "
+$env.PROMPT_INDICATOR_VI_NORMAL = "↪️: "
 # When in vi insert-mode:
-$env.PROMPT_INDICATOR_VI_INSERT = "> "
+$env.PROMPT_INDICATOR_VI_INSERT = "↪️> "
 $env.PROMPT_COMMAND_RIGHT = {|| date now | format date "%r" }
 
 # Custom prompt 
@@ -32,12 +32,13 @@ def create-prompt [] {
 
     let current = $"\e[1m($current)(ansi reset)"
 
-    try {
-      let b = (git rev-parse --abbrev-ref HEAD err> /dev/null)
-       $"($current) [($b | str trim)] "
-    } catch {
-       $"($current)" 
-    }
+   let prompt = try {
+          let b = (git rev-parse --abbrev-ref HEAD err> /dev/null)
+          $"($current) [($b | str trim)]\n"
+        } catch {
+          $"($current)\n" 
+        }
+  $prompt
 }
 
 $env.PROMPT_COMMAND = { create-prompt }

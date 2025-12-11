@@ -63,12 +63,6 @@ return {
 					clangdFileStatus = true,
 				},
 				capabilities = capabilities,
-				-- on_attach = function(client, bufnr)
-				--   -- Enable inlay hints for type hints
-				--   if client.server_capabilities.inlayHintProvider then
-				--     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-				--   end
-				-- end,
 			})
 			vim.lsp.config("emmylua_ls", {
 				-- Make the server aware of Neovim runtime files
@@ -97,7 +91,7 @@ return {
 			vim.lsp.enable("emmylua_ls")
 			vim.lsp.enable("pyright")
 			vim.lsp.enable("nushell")
-      vim.lsp.enable("biome")
+			vim.lsp.enable("biome")
 
 			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
 			-- local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
@@ -107,6 +101,20 @@ return {
 			-- 		-- you can add other fields for setting up lsp server in this table
 			-- 	})
 			-- end
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(ev)
+					local client = vim.lsp.get_client_by_id(ev.data.client_id)
+					if client.name == "clangd" then
+						require("which-key").add({
+							{
+								"<leader>ch",
+								"<cmd>LspClangdSwitchSourceHeader<cr>",
+								desc = "Switch src/header",
+							},
+						})
+					end
+				end,
+			})
 		end,
 	},
 	-- Autocompletion
@@ -177,8 +185,8 @@ return {
 					javascript = { "prettierd", "prettier", stop_after_first = true },
 					json = { "biome" },
 					jsonc = { "biome" },
-          cpp = {"clang-format", lsp_format = "fallback"},
-          go = {"gofmt"},
+					cpp = { "clang-format", lsp_format = "fallback" },
+					go = { "gofmt" },
 				},
 			})
 			require("which-key").add({

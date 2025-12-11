@@ -15,6 +15,7 @@ return {
 	}, -- for default options, refer to the configuration section for custom setup.
 	cmd = "Trouble",
 	keys = {
+    { "<Leader>x", group = "Trouble windows", desc = "Open trouble windows"},
 		{
 			"<leader>xx",
 			"<cmd>Trouble diagnostics toggle<cr>",
