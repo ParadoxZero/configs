@@ -62,8 +62,12 @@ alias gen_clangd = vpython3 "tools/clang/scripts/generate_compdb.py" -o "compile
 def ssh_to [$cmd] {
   if $cmd == "infra" {
     ssh sidhin@10.192.140.65
-  } else if $cmd == "host" {
+  } else if $cmd == "dev" {
     ssh sidhin@10.195.68.65
+  } else if $cmd == "manage" {
+    ssh "10.172.103.97"
+  } else {
+    echo "Unknown target"
   }
 }
 

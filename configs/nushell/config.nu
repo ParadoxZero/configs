@@ -57,6 +57,10 @@ if $nu.os-info.name == "linux" {
     "/home/sidhin/path",
     "/home/sidhin/.local/share/fnm/aliases/default/bin"
   ])
+} else if $nu.os-info.name == "windows" {
+  $custom_paths = ($custom_paths | append [
+    "c:\\Program Files\\LLVM\\bin"
+  ])
 }
 
 $env.PATH = ($custom_paths | append $env.PATH ) 

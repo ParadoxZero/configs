@@ -7,6 +7,7 @@ import requests
 from tools.shell import Run
 import tools.output as output
 
+
 class OSType(enum.Enum):
     WIN = 1
     LINUX = 2
@@ -14,7 +15,7 @@ class OSType(enum.Enum):
 
 
 class OS:
-    def __init__(self, type:OSType, config_dir: Path) -> None:
+    def __init__(self, type: OSType, config_dir: Path) -> None:
         self.Type = type
         self.ConfigDir = config_dir
 
@@ -22,7 +23,7 @@ class OS:
         return self.Type
 
     def name(self):
-        return  platform.system()     
+        return platform.system()
 
     def get_nvim_path(self):
         return self.ConfigDir / "nvim"
@@ -36,13 +37,14 @@ class OS:
     def get_tmux_plugin_path(self):
         return self.ConfigDir / "tmux"
 
-    def install_dependencies(self)->bool:
+    def install_dependencies(self) -> bool:
         raise NotImplementedError()
+
 
 class Win(OS):
     def __init__(self):
         config_dir: Path = Path.home() / "AppData" / "local"
-        super().__init__(type=OSType.WIN, config_dir= config_dir)
+        super().__init__(type=OSType.WIN, config_dir=config_dir)
 
     @override
     def get_nushell_path(self):
@@ -53,16 +55,17 @@ class Win(OS):
         raise ValueError("Tmux isn't available on windows")
 
     @override
-    def install_dependencies(self)->bool:
-        deps = [ 
-           "winget install  Nushell.Nushell",
-           "winget install Neovim.Neovim",
-           "winget install BurntSushi.ripgrep.MSVC",
-           "winget install junegunn.fzf",
-           "winget install ajeetdsouza.zoxide",
-           "winget install  Python.Python.3.13",
-           "winget install  Rustlang.Rustup --include-unknown",
-           "winget install JesseDuffield.lazygit",
+    def install_dependencies(self) -> bool:
+        deps = [
+            "winget install  Nushell.Nushell",
+            "winget install Neovim.Neovim",
+            "winget install BurntSushi.ripgrep.MSVC",
+            "winget install junegunn.fzf",
+            "winget install ajeetdsouza.zoxide",
+            "winget install  Python.Python.3.13",
+            "winget install  Rustlang.Rustup --include-unknown",
+            "winget install JesseDuffield.lazygit",
+            "winget install LLVM.LLVM",
         ]
         for cmd in deps:
             if not Run(cmd):
@@ -70,9 +73,10 @@ class Win(OS):
                 continue
             output.Good(f"{cmd} ...OK")
         return True
-            
+
+
 class Linux(OS):
-    def __init__(self ) -> None:
+    def __init__(self) -> None:
         config_dir = Path.home() / ".config"
         super().__init__(OSType.LINUX, config_dir)
 
@@ -80,11 +84,13 @@ class Linux(OS):
         output.Info("Installing nushell ...")
         nushell_repo_key = Path("/etc/apt/keyrings/fury-nushell.gpg").resolve()
         if not nushell_repo_key.exists():
-            result = Run("wget -qO- https://apt.fury.io/nushell/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/fury-nushell.gpg")
+            result = Run(
+                "wget -qO- https://apt.fury.io/nushell/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/fury-nushell.gpg")
             if not result:
                 output.Bad("Failed to fetch nushell repo signing key")
                 return False
-            result = Run("echo \"deb [signed-by=/etc/apt/keyrings/fury-nushell.gpg] https://apt.fury.io/nushell/ /\" | sudo tee /etc/apt/sources.list.d/fury.list")
+            result = Run(
+                "echo \"deb [signed-by=/etc/apt/keyrings/fury-nushell.gpg] https://apt.fury.io/nushell/ /\" | sudo tee /etc/apt/sources.list.d/fury.list")
             if not result:
                 output.Bad("Failed to configure nushell repo")
                 return False
@@ -101,7 +107,8 @@ class Linux(OS):
 
     def __install_lazygit(self):
         output.Info("Fetching latest version of lazygit")
-        latest_lazygit = requests.get("https://api.github.com/repos/jesseduffield/lazygit/releases/latest").json()
+        latest_lazygit = requests.get(
+            "https://api.github.com/repos/jesseduffield/lazygit/releases/latest").json()
         tag_name = latest_lazygit["tag_name"].lstrip("v")
         output.Info(f"Found - lazygit v{tag_name}")
         output.Info(f"Downloading lazygit to ~/toolchain")
@@ -130,18 +137,18 @@ class Linux(OS):
     @override
     def install_dependencies(self) -> bool:
         deps = [
-                "fzf",
-                "ripgrep",
-                "zoxide",
-                "rustup",
-                "sqlite3",
+            "fzf",
+            "ripgrep",
+            "zoxide",
+            "rustup",
+            "sqlite3",
         ]
         output.Info("Installing dependencies ...Start")
         if not Run("sudo apt update"):
             return False
-        result = Run(f"sudo apt install {" ".join(deps)}" )
+        result = Run(f"sudo apt install {" ".join(deps)}")
         if not result:
-            output.Bad("Failed to install main deps" )
+            output.Bad("Failed to install main deps")
             return False
         result = Run(f"rustup toolchain install stable")
         if not result:
@@ -152,7 +159,8 @@ class Linux(OS):
         output.Good("Installing dependencies ...OK")
         return True
 
-def get_os()-> OS:
+
+def get_os() -> OS:
     os_name = platform.system()
     if os_name == "Windows":
         return Win()
