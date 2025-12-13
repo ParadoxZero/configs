@@ -6,6 +6,7 @@ return {
     "SmiteshP/nvim-navic",
     "nvim-tree/nvim-web-devicons", -- optional dependency
   },
+  enabled = false,
   opts = {
     -- configurations go here
   },

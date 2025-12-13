@@ -3,6 +3,7 @@ return {
 	{
 		"mason-org/mason.nvim",
 		opts = {},
+    lazy = true,
 		config = function()
 			require("mason").setup({
 				-- Optional configuration options
@@ -15,6 +16,7 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = { "williamboman/mason.nvim" },
+    lazy = true,
 		opts = {
 			automatic_installation = true,
 		},

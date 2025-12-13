@@ -14,10 +14,11 @@ return {
 		},
 		modes = {
 			search = {
-				enabled = false,
+				enabled = true,
 			},
       char = {
-        multi_line = true,
+        enabled = false,
+        multi_line = false,
         jump_labesl = true,
       }
 		},

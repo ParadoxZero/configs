@@ -29,7 +29,6 @@ return {
 		},
 	},
 	keys = {
-		{ "<Leader>g", group = "Git", desc = "Git related function" },
 		{
 			"<Leader>gb",
 			function()
