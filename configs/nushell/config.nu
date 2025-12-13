@@ -54,6 +54,7 @@ if $nu.os-info.name == "linux" {
     "/home/sidhin/depot_tools",
     "/home/sidhin/.npm-global/bin/",
     "/home/sidhin/.cargo/bin",
+    "/usr/local/go/bin",
     "/home/sidhin/path",
     "/home/sidhin/.local/share/fnm/aliases/default/bin"
   ])

@@ -31,7 +31,7 @@ return {
 			{ "gD", vim.lsp.buf.declaration, { noremap = true, silent = true }, desc = "Go to declaration" },
 			{ "gi", vim.lsp.buf.implementation, { noremap = true, silent = true }, desc = "Go to impl" },
 			{ "gr", vim.lsp.buf.references, { noremap = true, silent = true }, desc = "Go to refs" },
-			{ "<C-k>", vim.lsp.buf.signature_help, { noremap = true, silent = true }, desc = "Signature help" },
+			{ "<<Leader>cs", vim.lsp.buf.signature_help, { noremap = true, silent = true }, desc = "Signature help" },
 			{ "<leader>ck", vim.lsp.buf.hover, { noremap = true, silent = true }, desc = "Hover Action" },
 			{ "<leader>cn", vim.lsp.buf.rename, { noremap = true, silent = true }, desc = "Rename symbol" },
 			{ "<leader>ca", vim.lsp.buf.code_action, { noremap = true, silent = true }, desc = "Code Action" },

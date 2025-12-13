@@ -30,6 +30,19 @@ return {
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
 		---@module 'render-markdown'
 		---@type render.md.UserConfig
-		opts = {},
+		opts = {
+			render_modes = { "n", "c", "t" },
+			code = {
+				conceal_delimiters = false,
+				render_modes = false,
+				language = false,
+				language_icon = false,
+				language_name = false,
+				language_info = false,
+				language_info = false,
+				disable_background = true,
+				border = "thin",
+			},
+		},
 	},
 }
