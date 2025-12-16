@@ -1,0 +1,47 @@
+general.import = [
+  "./cyberdream.toml",
+]
+
+[window]
+
+opacity = 0.9
+
+decorations = "Full"
+decorations_theme_variant = "Light" # "Dark"
+dynamic_title = false
+title = "Terminal"
+
+[scrolling]
+history = 100000
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+
+[font]
+
+normal.family = "0xProto Nerd Font Mono"
+bold.family = "0xProto Nerd Font Mono"
+italic.family = "0xProto Nerd Font Mono"
+bold_italic.family = "0xProto Nerd Font Mono"
+
+size = 14.0
+
+[terminal]
+shell = {program = "nu", args = ["-e","\"cd ~\"","-l"]}
+osc52 = "CopyPaste"
+
+[keyboard]
+
+bindings = [
+  {key = "F11", action = "ToggleFullscreen"}
+]
+
+[mouse]
+bindings = [
+  { mouse = "Right", mods = "Control", action = "Paste" },
+]
+
+

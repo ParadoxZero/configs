@@ -37,6 +37,9 @@ class OS:
     def get_tmux_plugin_path(self):
         return self.ConfigDir / "tmux"
 
+    def get_alacritty_path(self):
+        return self.ConfigDir / "alacritty"
+
     def install_dependencies(self) -> bool:
         raise NotImplementedError()
 
@@ -50,6 +53,9 @@ class Win(OS):
     def get_nushell_path(self):
         return Path.home() / "AppData" / "Roaming" / "nushell"
 
+    @override
+    def get_alacritty_path(self):
+        return Path.home() / "AppData" / "Roaming" / "alacritty" 
     @override
     def get_tmux_conf_path(self):
         raise ValueError("Tmux isn't available on windows")

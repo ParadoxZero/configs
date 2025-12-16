@@ -76,6 +76,10 @@ def main():
     output.Info("Configuring NeoVim")
     recursive_link(root / "configs" / "nvim", os.get_nvim_path())
     output.Good("Configuring NeoVim ...OK")
+
+    output.Info("Configuring Alacritty")
+    recursive_link(root / "configs" / "alacritty", os.get_alacritty_path())
+    output.Good("Configuring Alacritty ...OK")
     
     if os.Type != OSType.WIN:
         output.Info("Configuring Tmux")
