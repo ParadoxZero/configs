@@ -1,5 +1,6 @@
 import enum
 import platform
+s
 from pathlib import Path
 from typing import override
 import requests
@@ -72,6 +73,7 @@ class Win(OS):
             "winget install  Rustlang.Rustup --include-unknown",
             "winget install JesseDuffield.lazygit",
             "winget install LLVM.LLVM",
+            "winget install sharkdp.bat",
         ]
         for cmd in deps:
             if not Run(cmd):

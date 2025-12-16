@@ -1,5 +1,5 @@
 general.import = [
-  "./cyberdream.toml",
+   "./cyberdream.toml",
 ]
 
 [window]
@@ -7,7 +7,7 @@ general.import = [
 opacity = 0.9
 
 decorations = "Full"
-decorations_theme_variant = "Light" # "Dark"
+decorations_theme_variant = "Dark" # "Dark"
 dynamic_title = false
 title = "Terminal"
 
@@ -17,8 +17,8 @@ history = 100000
 [selection]
 save_to_clipboard = true
 
-[cursor]
-style = { shape = "Beam", blinking = "On" }
+# [cursor]
+# style = { shape = "Beam", blinking = "On" }
 
 [font]
 
