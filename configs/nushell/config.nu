@@ -72,6 +72,8 @@ source ./private.nu
 
 const plat_file = if ($nu.os-info.name == "linux") { 
   "./ubuntu_alias.nu" 
+} else if ($nu.os-info.name == "macos") { 
+  "./macos_alias.nu"
 } else { 
   "./windows_alias.nu" 
 }

@@ -18,7 +18,7 @@ def dbranch [] { git branch | fzf | str trim | git branch -D $in }
 def fcd [$query] { fzf -q $query --preview "dir {}" | str trim | ^($env.EDITOR) $in }
 
 # Combine ripgrep with fzf to search and open files in huge codebases
-def frg [$query] { rg --files-with-matches $query | fzf --preview "batcat {}" }
+def frg [$query] { rg --files-with-matches $query | fzf --preview "bat {}" }
 def fnv [$query] { fzf -q $query | nvim $in }
 alias rcpp =  rg -tcpp 
 alias rjs =  rg -tjs 
