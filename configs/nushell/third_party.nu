@@ -1,11 +1,8 @@
 
 # Third Party tools
-zoxide init nushell | save -f ~/.zoxide.nu
-source ~/.zoxide.nu
 
-if $nu.os-info.name == "linux" {
-  alias bat = batcat
-}
+zoxide init nushell | save -f ~/.zoxide.nu 
+source '~/.zoxide.nu'
 
 # 
 # The Following alias expects a couple of dependencies

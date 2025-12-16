@@ -142,6 +142,7 @@ class Linux(OS):
             "zoxide",
             "rustup",
             "sqlite3",
+            "bat"
         ]
         output.Info("Installing dependencies ...Start")
         if not Run("sudo apt update"):
@@ -153,6 +154,9 @@ class Linux(OS):
         result = Run(f"rustup toolchain install stable")
         if not result:
             output.Bad("Failed to install rust toolchain")
+            return False
+        if not Run("zoxide init nushell | save -f ~/.zoxide.nu"):
+            output.Bad("Failed to init zoxide")
             return False
         self.__install_nushell()
         self.__install_lazygit()

@@ -68,6 +68,9 @@ def main():
     
     output.Info("Configuring nushell")
     recursive_link(root / "configs" / "nushell", os.get_nushell_path())
+    output.Info("Creating private.nu")
+    private_nu_path = os.get_nushell_path() / "private.nu"
+    private_nu_path.touch(exist_ok=True)
     output.Good("Configuring nushell ...OK")
     
     output.Info("Configuring NeoVim")

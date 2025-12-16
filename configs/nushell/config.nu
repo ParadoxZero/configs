@@ -47,7 +47,6 @@ $env.PROMPT_COMMAND = { create-prompt }
 # Add any directory to be included in path here
 # do not use alias in the path e.g. ~. Add absolute
 # paths
-
 mut custom_paths = []
 if $nu.os-info.name == "linux" {
   $custom_paths = ($custom_paths | append [
@@ -70,5 +69,12 @@ source ./variables.nu
 source ./git.nu
 source ./third_party.nu
 source ./private.nu
+
+const plat_file = if ($nu.os-info.name == "linux") { 
+  "./ubuntu_alias.nu" 
+} else { 
+  "./windows_alias.nu" 
+}
+source $plat_file
 
 echo "⚡Nushell environment ready ...☑️"
