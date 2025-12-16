@@ -1,5 +1,6 @@
 
 configs/nushell/history.txt
+configs/nushell/private.nu
 *.pyc
 *.sqlite3
 *.sqlite3-shm

@@ -3,6 +3,10 @@
 zoxide init nushell | save -f ~/.zoxide.nu
 source ~/.zoxide.nu
 
+if $nu.os-info.name == "linux" {
+  alias bat = batcat
+}
+
 # 
 # The Following alias expects a couple of dependencies
 # fzf, ripgrep and chromium/edge checkout
@@ -58,16 +62,4 @@ alias aclow = autoninja chrome -j 300
 alias a = autoninja 
 
 alias gen_clangd = vpython3 "tools/clang/scripts/generate_compdb.py" -o "compile_commands.json" -p
-
-def ssh_to [$cmd] {
-  if $cmd == "infra" {
-    ssh sidhin@10.192.140.65
-  } else if $cmd == "dev" {
-    ssh sidhin@10.195.68.65
-  } else if $cmd == "manage" {
-    ssh "10.172.103.97"
-  } else {
-    echo "Unknown target"
-  }
-}
 

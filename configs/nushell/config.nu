@@ -69,5 +69,6 @@ $env.PATH = ($custom_paths | append $env.PATH )
 source ./variables.nu
 source ./git.nu
 source ./third_party.nu
+source ./private.nu
 
 echo "⚡Nushell environment ready ...☑️"
