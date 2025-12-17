@@ -4,8 +4,8 @@ general.import = [
 
 [window]
 
-opacity = 0.9
-
+opacity = 0.97
+padding = {x=10,y=10}
 decorations = "Full"
 decorations_theme_variant = "Dark" # "Dark"
 dynamic_title = false
@@ -17,16 +17,15 @@ history = 100000
 [selection]
 save_to_clipboard = true
 
-# [cursor]
-# style = { shape = "Beam", blinking = "On" }
+[cursor]
+style.shape = "Block"
+style.blinking = "On"
+thickness = 0
 
 [font]
 
 normal.family = "0xProto Nerd Font Mono"
-bold.family = "0xProto Nerd Font Mono"
-italic.family = "0xProto Nerd Font Mono"
-bold_italic.family = "0xProto Nerd Font Mono"
-
+offset = {x = 0, y = 0 }
 size = 14.0
 
 [terminal]
