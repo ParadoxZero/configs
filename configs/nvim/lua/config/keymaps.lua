@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-map("n", "<c-l>", "<cmd>nohlsearch<CR>", opts)
+map("n", "<ESC>", "<cmd>nohlsearch<CR>", opts)
 map("i", "jj", "<Esc>", { noremap = true })
 map("i", "kk", "<Esc>", { noremap = true })
 

@@ -2,7 +2,7 @@ return {
 	{
 		"ojroques/vim-oscyank",
 		branch = "main",
-    lazy = true,
+    lazy = false,
 		config = function()
 			local wk = require("which-key")
 			wk.add({

@@ -16,7 +16,7 @@ vim.smartindent = true
 vim.opt.wrap = false
 
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = "80"
+vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.shell = "nu"
 
