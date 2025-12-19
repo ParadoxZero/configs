@@ -1,6 +1,5 @@
 import enum
 import platform
-s
 from pathlib import Path
 from typing import override
 import requests
