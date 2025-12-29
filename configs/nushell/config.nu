@@ -62,7 +62,8 @@ if $nu.os-info.name == "linux" {
     "/home/sidhin/.cargo/bin",
     "/usr/local/go/bin",
     "/home/sidhin/path",
-    "/home/sidhin/.local/share/fnm/aliases/default/bin"
+    "/home/sidhin/.local/share/fnm/aliases/default/bin",
+    "/opt/bin/"
   ])
 } else if $nu.os-info.name == "windows" {
   $custom_paths = ($custom_paths | append [

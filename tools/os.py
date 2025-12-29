@@ -149,7 +149,8 @@ class Linux(OS):
             "zoxide",
             "rustup",
             "sqlite3",
-            "bat"
+            "bat",
+            "clang",
         ]
         output.Info("Installing dependencies ...Start")
         if not Run("sudo apt update"):
