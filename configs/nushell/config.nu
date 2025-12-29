@@ -20,9 +20,9 @@ $env.config.cursor_shape = $cursor_shape
 ## Prompt configuration ##
 # $env.PROMPT_COMMAND = {|| }
 # When in normal vi mode:
-$env.PROMPT_INDICATOR_VI_NORMAL = "↪️: "
+# $env.PROMPT_INDICATOR_VI_NORMAL = "↪️: "
 # When in vi insert-mode:
-$env.PROMPT_INDICATOR_VI_INSERT = "↪️> "
+# $env.PROMPT_INDICATOR_VI_INSERT = "↪️> "
 $env.PROMPT_COMMAND_RIGHT = {|| date now | format date "%r" }
 
 # Custom prompt 
@@ -48,7 +48,7 @@ def create-prompt [] {
   $prompt
 }
 
-$env.PROMPT_COMMAND = { create-prompt }
+# $env.PROMPT_COMMAND = { create-prompt }
 
 
 # Add any directory to be included in path here
@@ -63,7 +63,8 @@ if $nu.os-info.name == "linux" {
     "/usr/local/go/bin",
     "/home/sidhin/path",
     "/home/sidhin/.local/share/fnm/aliases/default/bin",
-    "/opt/bin/"
+    "/opt/bin/",
+    "/home/sidhin/.local/bin/",
   ])
 } else if $nu.os-info.name == "windows" {
   $custom_paths = ($custom_paths | append [
