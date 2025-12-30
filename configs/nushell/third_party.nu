@@ -4,6 +4,11 @@
 zoxide init nushell | save -f ~/.zoxide.nu 
 source '~/.zoxide.nu'
 
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+mkdir $"($nu.cache-dir)"
+carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
+source $"($nu.cache-dir)/carapace.nu"
+
 # 
 # The Following alias expects a couple of dependencies
 # fzf, ripgrep and chromium/edge checkout

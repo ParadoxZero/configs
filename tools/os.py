@@ -40,6 +40,9 @@ class OS:
     def get_alacritty_path(self):
         return self.ConfigDir / "alacritty"
 
+    def get_kitty_path(self):
+        return self.ConfigDir / "kitty"
+
     def install_dependencies(self) -> bool:
         raise NotImplementedError()
 

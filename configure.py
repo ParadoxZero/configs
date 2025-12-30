@@ -86,6 +86,8 @@ def main():
         link(root / "configs" / ".tmux.conf", os.get_tmux_conf_path())
         recursive_link(root / "configs" / "tmux", os.get_tmux_plugin_path())
         output.Good("Configuring Tmux ...Ok")
+        output.Info("Configuring Kitty")
+        recursive_link(root / "configs" / "kitty", os.get_kitty_path())
 
 if __name__ == "__main__":
     main()
