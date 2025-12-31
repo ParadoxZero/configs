@@ -68,7 +68,8 @@ if $nu.os-info.name == "linux" {
   ])
 } else if $nu.os-info.name == "windows" {
   $custom_paths = ($custom_paths | append [
-    "c:\\Program Files\\LLVM\\bin"
+    "c:\\Program Files\\LLVM\\bin",
+    "C:\\Users\\sidhin\\.local\\bin"
   ])
 }
 
