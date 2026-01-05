@@ -139,7 +139,7 @@ class Linux(OS):
             output.Bad("Failed to extract Lazygit. Install Manually...")
             return
         output.Info("Placing lazygit")
-        if not Run(f"sudo install {download_root / "lazygit"} -D -t /usr/local/bin"):
+        if not Run(f"sudo install lazygit -D -t /usr/local/bin"):
             output.Bad("Failed to place lazygit")
             return
         output.Good("Installed Lazygit")
