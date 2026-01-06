@@ -43,6 +43,9 @@ class OS:
     def get_kitty_path(self):
         return self.ConfigDir / "kitty"
 
+    def get_starship_path(self):
+        return self.ConfigDir / "starship.toml"
+
     def install_dependencies(self) -> bool:
         raise NotImplementedError()
 
