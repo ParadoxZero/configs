@@ -42,7 +42,7 @@ return {
 				},
 			})
 			local function open_oil_here()
-				require("oil").open_float()
+				require("oil").open()
 			end
 			local wk = require("which-key")
 			wk.add({
