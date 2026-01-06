@@ -63,6 +63,7 @@ def main():
     if not args.skip_deps:
         if not os.install_dependencies():
             return 
+        os.install_cargo_deps()
     here = Path(__file__).resolve()
     root = here.parent
     

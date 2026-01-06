@@ -49,6 +49,10 @@ class OS:
     def install_dependencies(self) -> bool:
         raise NotImplementedError()
 
+    def install_cargo_deps(self):
+        deps = [ "tree-sitter-cli", "zoxide", "nu"]
+        for dep in deps:
+            Run(f"cargo install {dep} --locked")
 
 class Win(OS):
     def __init__(self):
@@ -153,7 +157,6 @@ class Linux(OS):
             "fzf",
             "ripgrep",
             "zoxide",
-            "rustup",
             "sqlite3",
             "bat",
             "clang",
