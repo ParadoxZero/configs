@@ -3,6 +3,7 @@ return {
     'mfussenegger/nvim-dap',
     name = "dap",
     lazy = true,
+    enabled = false,
     config = function()
       local dap = require("dap")
       dap.adapters.gdb = {
@@ -28,6 +29,7 @@ return {
   {
     "igorlfs/nvim-dap-view",
     lazy = true,
+    enabled = false,
     ---@module 'dap-view'
     ---@type dapview.Config
     opts = {},

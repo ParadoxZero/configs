@@ -1,3 +1,4 @@
-mkdir ($nu.vendor-autoload-dirs | get 2)
-zoxide init nushell | save --force $"($nu.vendor-autoload-dirs | get 2)/zoxide.nu"
-carapace _carapace nushell | save --force $"($nu.vendor-autoload-dirs | get 2)/caraspace.nu"
+let vendor_dir = $nu.vendor-autoload-dirs | last
+mkdir $vendor_dir
+zoxide init nushell | save --force $"($vendor_dir)/zoxide.nu"
+carapace _carapace nushell | save --force $"($vendor_dir)/caraspace.nu"
