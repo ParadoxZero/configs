@@ -71,6 +71,10 @@ class Win(OS):
         raise ValueError("Tmux isn't available on windows")
 
     @override
+    def get_starship_path(self):
+        return Path.home() / ".config" / "starship.toml"
+
+    @override
     def install_dependencies(self) -> bool:
         deps = [
             "winget install  Nushell.Nushell",
