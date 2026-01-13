@@ -11,7 +11,7 @@ return {
 		dashboard = { enabled = true },
 		input = { enabled = true },
 		quickfile = { enabled = true },
-		notifier = { enabled = true },
+		notifier = { enabled = false },
 		scope = { enabled = true },
 		scroll = {
 			enabled = true,
