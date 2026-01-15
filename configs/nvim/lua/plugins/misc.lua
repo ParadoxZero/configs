@@ -2,7 +2,7 @@ return {
 	{
 		"ojroques/vim-oscyank",
 		branch = "main",
-    lazy = false,
+		lazy = false,
 		config = function()
 			local wk = require("which-key")
 			wk.add({
@@ -14,14 +14,14 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
-    enabled = false,
+		enabled = false,
 		opts = {
 			-- options
 		},
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-    enabled = true,
+		enabled = true,
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
