@@ -14,7 +14,7 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
-		enabled = false,
+    enabled = true,
 		opts = {
 			-- options
 		},
