@@ -224,10 +224,6 @@ class MacOS(OS):
             output.Bad("Failed to install rust toolchain")
             return False
             
-        if not Run("zoxide init nushell | save -f ~/.zoxide.nu"):
-            output.Bad("Failed to init zoxide")
-            return False
-
         output.Good("Installing dependencies ...OK")
         return True
 
