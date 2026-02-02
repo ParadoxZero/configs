@@ -15,48 +15,14 @@ let cursor_shape = {
         vi_normal: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 $env.config.cursor_shape = $cursor_shape
-
-
-## Prompt configuration ##
-# $env.PROMPT_COMMAND = {|| }
-# When in normal vi mode:
-# $env.PROMPT_INDICATOR_VI_NORMAL = "↪️: "
-# When in vi insert-mode:
-# $env.PROMPT_INDICATOR_VI_INSERT = "↪️> "
 $env.PROMPT_COMMAND_RIGHT = {|| date now | format date "%r" }
-
-# Custom prompt 
-# Abbrevate $home to ~
-# Append git branch if exists
-def create-prompt [] {
-    mut current = $env.PWD
-    if $current == $nu.home-path {
-      $current = "~"
-    } else if ($current | str starts-with $nu.home-path) {
-      $current = $current | path relative-to $nu.home-path
-      $current = $"~/($current)"
-    } 
-
-    let current = $"\e[1m($current)(ansi reset)"
-
-   let prompt = try {
-          let b = (git rev-parse --abbrev-ref HEAD err> /dev/null)
-          $"($current) [($b | str trim)]\n"
-        } catch {
-          $"($current)\n" 
-        }
-  $prompt
-}
-
-# $env.PROMPT_COMMAND = { create-prompt }
-
 
 # Add any directory to be included in path here
 # do not use alias in the path e.g. ~. Add absolute
 # paths
-mut custom_paths = []
+let custom_paths = (
 if $nu.os-info.name == "linux" {
-  $custom_paths = ($custom_paths | append [
+   [
     "/home/sidhin/depot_tools",
     "/home/sidhin/.npm-global/bin/",
     "/home/sidhin/.cargo/bin",
@@ -65,13 +31,13 @@ if $nu.os-info.name == "linux" {
     "/home/sidhin/.local/share/fnm/aliases/default/bin",
     "/opt/bin/",
     "/home/sidhin/.local/bin/",
-  ])
+  ]
 } else if $nu.os-info.name == "windows" {
-  $custom_paths = ($custom_paths | append [
+  [
     "c:\\Program Files\\LLVM\\bin",
     "C:\\Users\\sidhin\\.local\\bin"
-  ])
-}
+  ]
+})
 
 $env.PATH = ($custom_paths | append $env.PATH ) 
 

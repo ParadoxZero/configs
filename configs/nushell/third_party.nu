@@ -42,20 +42,19 @@ def klogs [$pod] {
 # Quality of Life shortcuts to make development easier
 #
 
-let CR_DIR = '~/cr/src/'
-
-def set_cr_root [] {
-  let CR_DIR = (pwd)
-}
-
-alias e = z $CR_DIR
-alias eod = z ($CR_DIR | path join "out" "Debug")
-alias eor = z ($CR_DIR | path join "out" "Release")
-alias eow = z ($CR_DIR | path join "out" "win")
-
 alias ac = autoninja chrome
 alias aclow = autoninja chrome -j 300
 alias a = autoninja 
 
 alias gen_clangd = vpython3 "tools/clang/scripts/generate_compdb.py" -o "compile_commands.json" -p
 
+def ehost [] {
+  let path = (
+    if ($nu.os-info.name == "windows") {
+      "C:\\Windows\\System32\\drivers\\etc\\hosts"
+    } else {
+      "/etc/hosts"
+    }
+  )
+  sudo nvim $path
+}
