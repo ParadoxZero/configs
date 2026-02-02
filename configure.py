@@ -91,5 +91,10 @@ def main():
         output.Info("Configuring Kitty")
         recursive_link(root / "configs" / "kitty", os.get_kitty_path())
 
+    if os.Type == OSType.WIN:
+        output.Info("Configuring GlazeWM")
+        link(root / "configs" / "glazewm" / "config.yaml", os.get_glazewm())
+        output.Good("Configuring Glazewm ...OK")
+
 if __name__ == "__main__":
     main()

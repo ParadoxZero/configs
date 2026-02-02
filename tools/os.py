@@ -74,6 +74,9 @@ class Win(OS):
     def get_starship_path(self):
         return Path.home() / ".config" / "starship.toml"
 
+    def get_glazewm(self):
+        return Path.home() / ".glzr" / "glazewm" / "config.yaml"
+
     @override
     def install_dependencies(self) -> bool:
         deps = [
