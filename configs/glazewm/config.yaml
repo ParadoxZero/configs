@@ -48,7 +48,7 @@ gaps:
 
   # Gap between windows and the screen edge.
   outer_gap:
-    top: '50px'
+    top: '40px'
     right: '10px'
     bottom: '10px'
     left: '10px'
@@ -321,3 +321,8 @@ keybindings:
     bindings: ['alt+shift+8']
   - commands: ['move --workspace 9', 'focus --workspace 9']
     bindings: ['alt+shift+9']
+  # custom keybinds
+  - commands: ["set-transparency --opacity 100%"]
+    bindings: ["alt+shift+c"]
+  - commands: ["set-transparency --opacity 95%"]
+    bindings: ["alt+shift+t"]
