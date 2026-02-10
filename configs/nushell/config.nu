@@ -22,16 +22,16 @@ $env.PROMPT_COMMAND_RIGHT = {|| date now | format date "%r" }
 # paths
 let custom_paths = (
 if $nu.os-info.name == "linux" {
-   [
-    "/home/sidhin/depot_tools",
-    "/home/sidhin/.npm-global/bin/",
-    "/home/sidhin/.cargo/bin",
-    "/usr/local/go/bin",
-    "/home/sidhin/path",
-    "/home/sidhin/.local/share/fnm/aliases/default/bin",
-    "/opt/bin/",
-    "/home/sidhin/.local/bin/",
-  ]
+    [
+        ($env.HOME | path join "depot_tools")
+        ($env.HOME | path join ".npm-global" "bin")
+        ($env.HOME | path join ".cargo" "bin")
+        "/usr/local/go/bin"
+        ($env.HOME | path join "path")
+        ($env.HOME | path join ".local" "share" "fnm" "aliases" "default" "bin")
+        "/opt/bin/"
+        ($env.HOME | path join ".local" "bin")
+    ]
 } else if $nu.os-info.name == "windows" {
   [
     "c:\\Program Files\\LLVM\\bin",

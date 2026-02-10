@@ -1,3 +1,3 @@
 
 alias bat = batcat
-alias kubectl = micrik8s kubectl
+alias kubectl = microk8s kubectl

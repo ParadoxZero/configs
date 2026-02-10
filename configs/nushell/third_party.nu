@@ -1,4 +1,6 @@
 
+source ./ubuntu_alias.nu
+
 # Third Party tools
 
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
