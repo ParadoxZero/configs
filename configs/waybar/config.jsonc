@@ -1,0 +1,144 @@
+{
+  "layer": "top",
+  "position": "top",
+  "autohide": true,
+  "autohide-blocked": false,
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  /* === Modules Order === */
+  "modules-left": [
+    "custom/archicon",
+    "clock",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature"
+  ],
+  "modules-center": [
+    "sway/workspaces"
+  ],
+  "modules-right": [
+    "wlr/taskbar",
+    "idle_inhibitor",
+    "pulseaudio/slider",
+    "custom/bluetooth",
+    "network",
+    "custom/power"
+  ],
+  /* === Modules Left === */
+  "custom/archicon": {
+    "format": "󱗼",
+    "on-click": "wofi --show drun",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": "",
+    "on-click": "/home/sidhin/.config/waybar/powermenu.sh",
+    "tooltip": false
+  },
+  "custom/bluetooth": {
+    "format": "",
+    "on-click": "kitty --class floating_tui bluetui",
+    "tooltip": false
+  },
+  "clock": {
+    "format": "| {:%I:%M %p | %d-%m-%y}",
+    "on-click": "xdg-open https://outlook.live.com/calendar/0/view/month",
+    "tooltip": false
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": true,
+    "tooltip-format": "CPU: {usage}%\nCores: {cores}"
+  },
+  "memory": {
+    "format": "{}% 󰍛",
+    "tooltip": true,
+    "tooltip-format": "RAM Used: {used} / {total} ({percentage}%)"
+  },
+  "disk": {
+    "format": "{percentage_free}% ",
+    "tooltip": true,
+    "tooltip-format": "Storage : {free} / {total} ({percentage_free}%)"
+  },
+  "temperature": {
+    "format": "{temperatureC}°C {icon}",
+    "tooltip": true,
+    "tooltip-format": "Current temperature: {temperatureC}°C\nCrítico si > 80°C",
+    "format-icons": [
+      ""
+    ]
+  },
+  /* === Modules Center === */
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "default": ""
+    },
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+    }
+  },
+  /* === Modules Right === */
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "all-outputs": true,
+    "active-first": true,
+    "tooltip-format": "{name}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "rofi"
+    ]
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "pulseaudio/slider": {
+    "format": "{volume}%",
+    "format-muted": " MUTE",
+    "step": 5,
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": " {format_source}",
+    "format-icons": {
+      "default": [
+        "",
+        ""
+      ]
+    }
+  },
+  "network": {
+    "format-wifi": "<span size='large'></span>  {essid}",
+    "format-ethernet": "<span size='large'>󰈀</span>  Ethernet",
+    "format-linked": "<span size='large'>󰈀</span>  {ifname} (No IP)",
+    "format-disconnected": "⚠  Disconnected",
+    "tooltip-format": "  {ifname} via {gwaddr}",
+    "tooltip-format-wifi": "  {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "  {ifname}: {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    "on-click": "kitty --class floating_tui -e nmtui connect"
+  },
+  "hyprland/language": {
+    "format": "{} ",
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
+    "format-es": "ESP",
+    "format-en": "ENG"
+  }
+}

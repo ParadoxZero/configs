@@ -96,5 +96,11 @@ def main():
         link(root / "configs" / "glazewm" / "config.yaml", os.get_glazewm())
         output.Good("Configuring Glazewm ...OK")
 
+    if os.Type == OSType.LINUX:
+        output.Info("Configuring SwayWM")
+        recursive_link(root / "configs" / "sway", os.get_sway_path())
+        recursive_link(root / "configs" / "waybar", os.get_waybar_path())
+        output.Good("Configured Sway with Waybar")
+
 if __name__ == "__main__":
     main()

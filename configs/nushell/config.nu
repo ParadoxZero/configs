@@ -26,6 +26,7 @@ if $nu.os-info.name == "linux" {
         ($env.HOME | path join "depot_tools")
         ($env.HOME | path join ".npm-global" "bin")
         ($env.HOME | path join ".cargo" "bin")
+        ($env.HOME | path join "go" "bin")
         "/usr/local/go/bin"
         ($env.HOME | path join "path")
         ($env.HOME | path join ".local" "share" "fnm" "aliases" "default" "bin")

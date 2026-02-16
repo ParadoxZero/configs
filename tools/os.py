@@ -50,7 +50,7 @@ class OS:
         raise NotImplementedError()
 
     def install_cargo_deps(self):
-        deps = [ "tree-sitter-cli", "zoxide", "nu"]
+        deps = [ "tree-sitter-cli", "zoxide", "nu", "eza", "yatzi", "bat",]
         for dep in deps:
             Run(f"cargo install {dep} --locked")
 
@@ -84,7 +84,6 @@ class Win(OS):
             "winget install Neovim.Neovim",
             "winget install BurntSushi.ripgrep.MSVC",
             "winget install junegunn.fzf",
-            "winget install ajeetdsouza.zoxide",
             "winget install  Python.Python.3.13",
             "winget install  Rustlang.Rustup --include-unknown",
             "winget install JesseDuffield.lazygit",
@@ -104,30 +103,11 @@ class Linux(OS):
         config_dir = Path.home() / ".config"
         super().__init__(OSType.LINUX, config_dir)
 
-    def __install_nushell(self):
-        output.Info("Installing nushell ...")
-        nushell_repo_key = Path("/etc/apt/keyrings/fury-nushell.gpg").resolve()
-        if not nushell_repo_key.exists():
-            result = Run(
-                "wget -qO- https://apt.fury.io/nushell/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/fury-nushell.gpg")
-            if not result:
-                output.Bad("Failed to fetch nushell repo signing key")
-                return False
-            result = Run(
-                "echo \"deb [signed-by=/etc/apt/keyrings/fury-nushell.gpg] https://apt.fury.io/nushell/ /\" | sudo tee /etc/apt/sources.list.d/fury.list")
-            if not result:
-                output.Bad("Failed to configure nushell repo")
-                return False
-        result = Run("sudo apt update")
-        result = Run("sudo apt install nushell")
-        if not result:
-            output.Bad("Failed to install nushell.")
-            return False
-        result = Run("sudo chsh -s /usr/bin/nu")
-        if not result:
-            output.Info("Failed to set nushell as the login shell.")
-            output.Info("Non-fatal failure, continuing...")
-        return True
+    def get_sway_path(self):
+        return self.ConfigDir / "sway"
+
+    def get_waybar_path(self):
+        return self.ConfigDir / "waybar"
 
     def __install_lazygit(self):
         output.Info("Fetching latest version of lazygit")
@@ -162,8 +142,6 @@ class Linux(OS):
     def install_dependencies(self) -> bool:
         deps = [
             "fzf",
-            "ripgrep",
-            "zoxide",
             "sqlite3",
             "bat",
             "clang",
@@ -179,7 +157,6 @@ class Linux(OS):
         if not result:
             output.Bad("Failed to install rust toolchain")
             return False
-        self.__install_nushell()
         self.__install_lazygit()
         output.Good("Installing dependencies ...OK")
         return True
@@ -205,7 +182,6 @@ class MacOS(OS):
             "nushell",
             "ripgrep",
             "fzf",
-            "zoxide",
             "lazygit",
             "bat",
             "sqlite",
