@@ -28,7 +28,6 @@ alias rjs =  rg -tjs
 # Kubernetes utils
 #
 
-alias kget = kubectl get
 alias kpods = kubectl get pods --all-namespaces
 def klogs [$pod] {
   
@@ -36,7 +35,7 @@ def klogs [$pod] {
       | from json 
       | get items 
       | where {|x| $x.metadata.name | str contains $pod} 
-      | first
+      | input list "Select Pod" -f -d metadata.name
   kubectl logs -n $pod_details.metadata.namespace -f $pod_details.metadata.name
 }
 
