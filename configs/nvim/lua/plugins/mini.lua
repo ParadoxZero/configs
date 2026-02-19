@@ -27,4 +27,5 @@ return {
 			vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { underline = true, bg = "NONE" })
 		end,
 	},
+  { 'nvim-mini/mini.ai', version = '*' },
 }

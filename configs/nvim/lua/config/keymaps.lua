@@ -20,4 +20,9 @@ map("n", "<c-l>","<c-w>l", {noremap = true})
 --     map("n", "<Esc>", "<c-o>", {noremap = true})
 --   end,
 -- })
-
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "qf",
+  callback = function()
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = true })
+  end,
+})
