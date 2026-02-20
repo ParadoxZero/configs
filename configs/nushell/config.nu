@@ -42,6 +42,32 @@ if $nu.os-info.name == "linux" {
 
 $env.PATH = ($custom_paths | append $env.PATH ) 
 
+$env.config.completions = {
+    case_sensitive: false # set to false for easier matching
+    quick: true    # set to false if you want to always see the menu
+    partial: true  # allows completing partial segments
+    algorithm: "fuzzy" # Options: "prefix", "fuzzy"
+}
+
+$env.config.menus = [
+    {
+        name: completion_menu
+        only_buffer_difference: false
+        marker: "| "
+        type: {
+            layout: columnar
+            columns: 4
+            col_width: 20
+            col_padding: 2
+        }
+        style: {
+            text: green
+            selected_text: green_reverse
+            description_text: yellow
+        }
+    }
+]
+
 source ./variables.nu
 source ./git.nu
 source ./third_party.nu
