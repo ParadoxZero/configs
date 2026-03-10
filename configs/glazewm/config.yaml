@@ -48,7 +48,7 @@ gaps:
 
   # Gap between windows and the screen edge.
   outer_gap:
-    top: '60px'
+    top: '45px'
     right: '10px'
     bottom: '10px'
     left: '10px'
@@ -131,6 +131,9 @@ workspaces:
   - name: '9'
 
 window_rules:
+  - commands: ["set-title-bar-visibility hidden"]
+    match:
+      - window_process: { equals: 'WindowsTerminal' }
   - commands: ['ignore']
     match:
       # Ignores any Zebar windows.
