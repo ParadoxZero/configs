@@ -16,11 +16,10 @@
     "temperature"
   ],
   "modules-center": [
-    "sway/workspaces"
+    "sway/workspaces",
+    "sway/mode"
   ],
   "modules-right": [
-    "wlr/taskbar",
-    "idle_inhibitor",
     "pulseaudio/slider",
     "custom/bluetooth",
     "network",
