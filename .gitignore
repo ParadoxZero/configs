@@ -1,6 +1,7 @@
 
 configs/nushell/history.txt
 configs/nushell/private.nu
+configs/nvim/lazy-lock.json
 *.pyc
 *.sqlite3
 *.sqlite3-shm
