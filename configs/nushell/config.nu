@@ -1,4 +1,3 @@
-
 #
 # Nushell configurations
 #
@@ -32,6 +31,7 @@ if $nu.os-info.name == "linux" {
         ($env.HOME | path join ".local" "share" "fnm" "aliases" "default" "bin")
         "/opt/bin/"
         ($env.HOME | path join ".local" "bin")
+        ($env.HOME | path join ".local" "share" "fnm")
     ]
 } else if $nu.os-info.name == "windows" {
   [

@@ -15,7 +15,7 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 def f [$query] { fzf -q $query }
 def fc [$query] { fzf -q $query --preview "type {}" | str trim | ^($env.EDITOR) $in }
 def fbranch [] { git branch | fzf | str trim | git checkout  $in }
-def dbranch [] { git branch | fzf -m | lines | each {|$x| ($x | str trim | git branch -D $in) }
+def dbranch [] { git branch | fzf -m | lines | each {|$x| ($x | str trim | git branch -D $in) }}
 def fcd [$query] { fzf -q $query --preview "dir {}" | str trim | ^($env.EDITOR) $in }
 
 # Combine ripgrep with fzf to search and open files in huge codebases
