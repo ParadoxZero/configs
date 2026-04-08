@@ -100,7 +100,8 @@ def main():
         output.Info("Configuring SwayWM")
         recursive_link(root / "configs" / "sway", os.get_sway_path())
         recursive_link(root / "configs" / "waybar", os.get_waybar_path())
-        output.Good("Configured Sway with Waybar")
+        recursive_link(root / "configs" / "swaylock", os.get_swaylock_path())
+        output.Good("Configured Sway with Waybar and Swaylock")
 
 if __name__ == "__main__":
     main()

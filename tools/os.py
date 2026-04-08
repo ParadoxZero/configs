@@ -109,6 +109,9 @@ class Linux(OS):
     def get_waybar_path(self):
         return self.ConfigDir / "waybar"
 
+    def get_swaylock_path(self):
+        return self.ConfigDir / "swaylock"
+
     def __install_lazygit(self):
         output.Info("Fetching latest version of lazygit")
         latest_lazygit = requests.get(

@@ -1,0 +1,8 @@
+image=~/wallpaper/current
+scaling=fill
+
+# Disable the default color fallback so the image shows clearly
+color=000000
+
+# Show clock / indicator
+show-failed-attempts

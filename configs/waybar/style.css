@@ -82,6 +82,17 @@ window#waybar.hidden {
   color: #FFFFFF;
 }
 
+#cpu {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  margin-left: 5px;
+}
+
+#temperature {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
 /* Modules center */
 #workspaces {
   background: rgba(0, 0, 0, 0.5);
@@ -155,6 +166,8 @@ window#waybar.hidden {
 #pulseaudio-slider {
   color: #1A1826;
   min-width: 50px;
+  border-radius: 8px;
+  margin-right: 5px;
 }
 
 #pulseaudio-slider slider {}
@@ -164,18 +177,33 @@ window#waybar.hidden {
   color: #89B4FA;
   padding-right: 10px;
   padding-left: 10px;
+  border-radius: 8px;
+  margin-right: 5px;
 }
-
 
 #network {
   padding-right: 20px;
   color: #89B4FA;
   font-size: 20px;
+  border-radius: 8px;
+  margin-right: 5px;
 }
 
 #language {
   background: #A6E3A1;
   padding-right: 15px;
+}
+
+#battery {
+  background: rgba(0, 0, 0, 0.5);
+  color: #89B4FA;
+  padding-left: 10px;
+  padding-right: 6px;
+  font-size: 15px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 #custom-power {
@@ -186,7 +214,8 @@ window#waybar.hidden {
   font-size: 20px;
   margin-top: 6px;
   margin-bottom: 6px;
-  border-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   margin-right: 5px;
 }
 

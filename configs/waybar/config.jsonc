@@ -23,6 +23,7 @@
     "pulseaudio/slider",
     "custom/bluetooth",
     "network",
+    "battery",
     "custom/power"
   ],
   /* === Modules Left === */
@@ -57,9 +58,9 @@
     "tooltip-format": "RAM Used: {used} / {total} ({percentage}%)"
   },
   "disk": {
-    "format": "{percentage_free}% ",
+    "format": "{percentage_used}% ",
     "tooltip": true,
-    "tooltip-format": "Storage : {free} / {total} ({percentage_free}%)"
+    "tooltip-format": "Storage : {used} / {total} ({percentage_used}%)"
   },
   "temperature": {
     "format": "{temperatureC}°C {icon}",
@@ -133,6 +134,13 @@
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
     "on-click": "kitty --class floating_tui -e nmtui connect"
+  },
+  "battery": {
+    "format": "{capacity}%",
+    "format-charging": "{capacity}% 󱐋",
+    "format-plugged": "{capacity}% ",
+    "tooltip": true,
+    "tooltip-format": "{timeTo} — {capacity}%"
   },
   "hyprland/language": {
     "format": "{} ",
