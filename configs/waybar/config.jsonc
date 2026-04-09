@@ -29,12 +29,12 @@
   /* === Modules Left === */
   "custom/archicon": {
     "format": "󱗼",
-    "on-click": "wofi --show drun",
+    "on-click": "fuzzel --terminal=kitty",
     "tooltip": false
   },
   "custom/power": {
     "format": "",
-    "on-click": "/home/sidhin/.config/waybar/powermenu.sh",
+    "on-click": "wlogout",
     "tooltip": false
   },
   "custom/bluetooth": {
@@ -80,13 +80,6 @@
       "2": "",
       "default": ""
     },
-    "persistent_workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": []
-    }
   },
   /* === Modules Right === */
   "wlr/taskbar": {

@@ -2,7 +2,7 @@
 entries=" Shutdown
  Reboot
  Lock"
-selected=$(echo -e $entries|wofi --dmenu --prompt "Power Menu" --width 250 --height 200)
+selected=$(echo -e $entries|fuzzel --dmenu --prompt "Power Menu> ")
 case $selected in
   " Shutdown")
     systemctl poweroff
