@@ -1,0 +1,308 @@
+@define-color cc-bg #16161d;
+@define-color noti-border-color rgba(220, 215, 186, 0.15);
+@define-color noti-bg #11111b;
+@define-color noti-bg-darker #1e1e2e;
+@define-color noti-bg-hover #1b1b2b;
+@define-color noti-bg-focus #1b1b1b;
+@define-color text-color #dcd7ba;
+@define-color text-color-disabled #5c5c6e;
+@define-color bg-selected #7e9cd8;
+@define-color border-color rgba(118, 148, 106, 0.3);
+@define-color red-base #c34043;
+@define-color red-hover #e46876;
+@define-color green-base #98bb6c;
+@define-color blue-base #7e9cd8;
+@define-color action-bg rgba(255, 255, 255, 0.04);
+@define-color action-border rgba(255, 255, 255, 0.08);
+
+* {
+  font-family: "JetBrainsMono NFM", monospace;
+  border-radius: 0;
+}
+
+/* ── Notification popup ── */
+
+.notification-row {
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification {
+  background: @cc-bg;
+  border: 1px solid @border-color;
+  margin: 1px 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.notification-content {
+  padding: 8px 10px 6px 10px;
+}
+
+.notification-content image {
+  min-width: 56px;
+  min-height: 56px;
+  margin-right: 10px;
+}
+
+.notification-default-action {
+  padding: 0;
+  margin: 0;
+}
+
+.notification-default-action:hover {
+  background: @noti-bg-hover;
+}
+
+/* ── Action buttons — tiny flat strip at bottom ── */
+
+.notification-default-action,
+.notification-action {
+  box-shadow: none;
+  transition: all 0.1s ease-in-out;
+}
+
+.notification-action {
+  background: @action-bg;
+  color: @text-color-disabled;
+  border: none;
+  border-top: 1px solid @action-border;
+  border-right: 1px solid @action-border;
+  border-radius: 0;
+  padding: 0px 4px;
+  margin: 0;
+  font-size: 7px;
+  font-weight: 400;
+  min-height: 0;
+  min-width: 0;
+  text-shadow: none;
+  -GtkWidget-focus-padding: 0;
+  -GtkButton-inner-border: 0;
+}
+
+.notification-action:last-child {
+  border-right: none;
+}
+
+.notification-action:hover {
+  color: @text-color;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.notification-action label {
+  font-size: 7px;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+}
+
+.notification-action image {
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Close button ── */
+
+.close-button {
+  background: transparent;
+  color: @text-color-disabled;
+  text-shadow: none;
+  padding: 0;
+  margin: 2px 4px 0 0;
+  opacity: 0;
+  min-width: 14px;
+  min-height: 14px;
+  font-size: 9px;
+  border: none;
+  box-shadow: none;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.notification:hover .close-button {
+  opacity: 1;
+}
+
+.close-button:hover {
+  color: @red-base;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ── Text ── */
+
+.summary {
+  font-size: 13px;
+  font-weight: 700;
+  background: transparent;
+  color: @text-color;
+  text-shadow: none;
+}
+
+.time {
+  font-size: 10px;
+  font-weight: 400;
+  background: transparent;
+  color: @text-color-disabled;
+  text-shadow: none;
+  margin-right: 6px;
+}
+
+.body {
+  font-size: 11px;
+  font-weight: 400;
+  background: transparent;
+  color: @text-color-disabled;
+  text-shadow: none;
+}
+
+/* ── Inline reply ── */
+
+.inline-reply-entry {
+  background: @noti-bg-darker;
+  color: @text-color;
+  caret-color: @text-color;
+  border: 1px solid @action-border;
+  font-size: 10px;
+  padding: 2px 4px;
+}
+
+.inline-reply-button {
+  margin: 2px;
+  background: transparent;
+  border: 1px solid @action-border;
+  color: @text-color-disabled;
+  font-size: 9px;
+  padding: 1px 4px;
+  min-height: 0;
+}
+
+.inline-reply-button:disabled {
+  background: transparent;
+  color: @text-color-disabled;
+  border: 1px solid transparent;
+}
+
+.inline-reply-button:hover {
+  background: @noti-bg-hover;
+  color: @text-color;
+}
+
+/* ── Control center ── */
+
+.control-center {
+  background: @cc-bg;
+  border: 1px solid @border-color;
+}
+
+.control-center .notification-row:focus,
+.control-center .notification-row:hover {
+  opacity: 1;
+  background: @noti-bg-darker;
+}
+
+.widget-title {
+  color: @text-color;
+  background: transparent;
+  padding: 6px 10px;
+  margin: 6px 6px 2px 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.widget-title>button {
+  font-size: 0.75rem;
+  color: @text-color-disabled;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 2px 6px;
+  min-height: 0;
+}
+
+.widget-title>button:hover {
+  color: @red-base;
+  background: transparent;
+}
+
+.widget-dnd {
+  background: transparent;
+  padding: 4px 10px;
+  margin: 2px 6px;
+  font-size: small;
+  color: @text-color-disabled;
+}
+
+.widget-dnd>switch {
+  background: @action-bg;
+  border: 1px solid @action-border;
+  border-radius: 0;
+}
+
+.widget-dnd>switch:checked {
+  background: @red-base;
+  border: 1px solid @red-base;
+}
+
+.widget-label>label {
+  font-size: 0.8rem;
+  color: @text-color-disabled;
+  margin: 6px;
+}
+
+.widget-buttons-grid {
+  font-size: small;
+  padding: 2px;
+  margin: 2px 6px 6px 6px;
+  background: transparent;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button {
+  margin: 2px;
+  padding: 4px 24px;
+  background: @action-bg;
+  border: 1px solid @action-border;
+  color: @text-color-disabled;
+  box-shadow: none;
+  transition: color 0.15s ease-in-out;
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+  color: @text-color;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.widget-buttons-grid>flowbox>flowboxchild>button:checked {
+  color: @green-base;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.widget-volume,
+.widget-backlight {
+  background: transparent;
+  padding: 4px 10px;
+  margin: 2px 6px;
+  font-size: 1.2rem;
+  color: @text-color-disabled;
+}
+
+.widget-mpris {
+  color: @text-color;
+  background: transparent;
+  margin: 2px 6px 6px 6px;
+  box-shadow: none;
+}
+
+.widget-mpris>box>button,
+.widget-mpris-player,
+.widget-mpris-album-art {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 6px;
+}
+
+picture.mpris-background {
+  opacity: 0;
+}

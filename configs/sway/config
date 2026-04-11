@@ -19,10 +19,14 @@ set $term kitty
 set $menu 'fuzzel --terminal=kitty'
 
 # No titlebars, 2px border
-default_border pixel 2
+default_border pixel 5
 gaps inner 10
 smart_gaps on
 smart_borders on
+
+client.focused          #61afef #285577 #ffffff #61afef #61afef
+client.unfocused        #333333 #222222 #888888 #292d2e #222222
+client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
 
 xwayland enable
 
@@ -38,8 +42,15 @@ input "type:touchpad" {
     middle_emulation disabled
 }
 
+input "type:Mouse" {
+    scroll_method on_button_down
+    scroll_button button2
+}
+
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+exec swaync
 
 include /etc/sway/config-vars.d/*
 
@@ -85,16 +96,21 @@ exec swayidle -w \
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
+
 # Set global opacity for all windows (0.0 to 1.0)
 for_window [class=".*"] opacity 0.95
 for_window [app_id=".*"] opacity 0.95
+
+
+# Make Versa SASE client float
+for_window [class="VersaSecureAccessClient"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
 for_window [app_id="floating_tui"] {
     floating enable
     resize set 1200 px 800 px
     move position center
-    border pixel 2
+    border pixel 5
 }
 
 ### Key bindings
@@ -123,6 +139,10 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Shift+Escape exec swaylock 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    
+    # Notifications
+    bindsym $mod+Shift+n exec swaync-client -t -sw
+    bindsym $mod+t exec kitten quick-access-terminal
 #
 # Moving around:
 #

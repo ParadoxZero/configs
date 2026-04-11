@@ -112,6 +112,9 @@ class Linux(OS):
     def get_swaylock_path(self):
         return self.ConfigDir / "swaylock"
 
+    def get_swaync_path(self):
+        return self.ConfigDir / "swaync"
+
     def __install_lazygit(self):
         output.Info("Fetching latest version of lazygit")
         latest_lazygit = requests.get(

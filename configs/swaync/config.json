@@ -1,0 +1,99 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "ignore-gtk-theme": true,
+  "positionX": "right",
+  "positionY": "top",
+  "control-center-margin-top": 10,
+  "control-center-margin-bottom": 10,
+  "control-center-margin-right": 10,
+  "notification-body-image-height": 120,
+  "notification-body-image-width": 120,
+  "timeout": 5,
+  "timeout-low": 2,
+  "timeout-critical": 0,
+  "fit-to-screen": false,
+  "control-center-width": 500,
+  "control-center-height": 1035,
+  "notification-window-width": 500,
+  "keyboard-shortcuts": true,
+  "notification-grouping": true,
+  "image-visibility": "always",
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "script-fail-notify": true,
+  "text-empty": "No Notification",
+  "widgets": ["title", "buttons-grid", "mpris"],
+  "notification-action-filter": {
+    "chromium": {
+      "desktop-entry": "chromium-browser",
+      "use-regex": false,
+      "id-matcher": "settings"
+    }
+  },
+  "widget-config": {
+    "title": {
+      "text": "Notification Center",
+      "clear-all-button": true,
+      "button-text": "󰆴 Clear All"
+    },
+    "mpris": {
+      "blacklist": ["playerctl"],
+      "autohide": false,
+      "show-album-art": "always",
+      "loop-carousel": false
+    },
+    "volume": {
+      "label": "󰕾"
+    },
+    "backlight": {
+      "label": "󰃟"
+    },
+    "buttons-grid": {
+      "actions": [
+        {
+          "label": "󰐥",
+          "command": "systemctl poweroff"
+        },
+        {
+          "label": "󰜉",
+          "command": "systemctl reboot"
+        },
+        {
+          "label": "󰌾",
+          "command": "playerctl pause | $HOME/.config/sway/swaylock-corrupter.sh"
+        },
+        {
+          "label": "󰍃",
+          "command": "swaymsg exit"
+        },
+        {
+          "label": "󰆴",
+          "command": "swaync-client -C"
+        },
+        {
+          "label": "󰕾",
+          "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "󰍬",
+          "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+          "type": "toggle"
+        },
+        {
+          "label": "󰖩",
+          "command": "iwgtk"
+        },
+        {
+          "label": "󰂯",
+          "command": "blueman-manager"
+        },
+        {
+          "label": "",
+          "command": "kooha"
+        }
+      ]
+    }
+  }
+}

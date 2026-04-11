@@ -194,7 +194,7 @@ window#waybar.hidden {
   padding-right: 15px;
 }
 
-#battery {
+#custom-notification {
   background: rgba(0, 0, 0, 0.5);
   color: #89B4FA;
   padding-left: 10px;
@@ -204,6 +204,16 @@ window#waybar.hidden {
   margin-bottom: 6px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+#battery {
+  background: rgba(0, 0, 0, 0.5);
+  color: #89B4FA;
+  padding-left: 10px;
+  padding-right: 6px;
+  font-size: 15px;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
 #custom-power {

@@ -6,7 +6,8 @@ include themes/cyberdream.conf
 #: kitty has very powerful font management. You can configure
 #: individual font faces and even specify special fonts for particular
 #: characters.
-# font_family      0xProto
+
+font_family      0xProto
 # bold_font        auto
 # italic_font      auto
 # bold_italic_font auto
@@ -2990,11 +2991,3 @@ background_tint 0.5
 #: }}}
 
 #: }}}
-
-
-# BEGIN_KITTY_FONTS
-font_family      family="0xProto Nerd Font Mono"
-bold_font        auto
-italic_font      auto
-bold_italic_font auto
-# END_KITTY_FONTS
