@@ -20,6 +20,13 @@ map("n", "<c-l>","<c-w>l", {noremap = true})
 --     map("n", "<Esc>", "<c-o>", {noremap = true})
 --   end,
 -- })
+
+map("n", "<leader>cy", function()
+  local path = vim.fn.expand("%") .. ":" .. vim.fn.line(".")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path)
+end, { noremap = true, desc = "Copy filepath:line to clipboard" })
+
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "qf",
   callback = function()

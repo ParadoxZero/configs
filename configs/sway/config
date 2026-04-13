@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term kitty
 # Your preferred application launcher
-set $menu 'fuzzel --terminal=kitty'
+set $menu 'XDG_CURRENT_DESKTOP=sway fuzzel --terminal=kitty --filter-desktop'
 
 # No titlebars, 2px border
 default_border pixel 5
