@@ -20,6 +20,7 @@
     "sway/mode",
   ],
   "modules-right": [
+    "tray",
     "pulseaudio/slider",
     "custom/bluetooth",
     "network",
@@ -83,6 +84,11 @@
     },
   },
   /* === Modules Right === */
+  "tray": {
+    "icon-size": 18,
+    "spacing": 6,
+    "show-passive-items": true
+  },
   "wlr/taskbar": {
     "format": "{icon}",
     "all-outputs": true,

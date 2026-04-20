@@ -13,10 +13,18 @@ $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 
 # Function for efficient fzf usage
 def f [$query] { fzf -q $query }
-def fc [$query] { fzf -q $query --preview "type {}" | str trim | ^($env.EDITOR) $in }
+
+# Fuzzy search of open in text editor
+def fc [$query] { fzf -q $query --preview "bat {}" | str trim | ^($env.EDITOR) $in }
+def fcc [$query] { fd -tf $query | fzf --preview "bat {}" | str trim | ^($env.EDITOR) $in }
+
+def fcd [$query] { fd -td $query | fzf  --preview "tree {}" | str trim | cd $in }
+
+# Switch to git branch
 def fbranch [] { git branch | fzf | str trim | git checkout  $in }
+# delete multiple git branch
 def dbranch [] { git branch | fzf -m | lines | each {|$x| ($x | str trim | git branch -D $in) }}
-def fcd [$query] { fzf -q $query --preview "dir {}" | str trim | ^($env.EDITOR) $in }
+
 
 # Combine ripgrep with fzf to search and open files in huge codebases
 def frg [$query] { rg --files-with-matches $query | fzf --preview "batcat {}" }

@@ -4,6 +4,7 @@ mkdir $vendor_dir
 # zoxide
 if (which zoxide | is-empty) {
   print "⚠️  zoxide not installed — skipping"
+  rm --force $"($vendor_dir)/zoxide.nu"
 } else {
   zoxide init nushell
     | save --force $"($vendor_dir)/zoxide.nu"
@@ -12,6 +13,7 @@ if (which zoxide | is-empty) {
 # carapace
 if (which carapace | is-empty) {
   print "⚠️  carapace not installed — skipping"
+  rm --force $"($vendor_dir)/carapace.nu"
 } else {
   carapace _carapace nushell
     | save --force $"($vendor_dir)/carapace.nu"
@@ -20,6 +22,7 @@ if (which carapace | is-empty) {
 # starship
 if (which starship | is-empty) {
   print "⚠️  starship not installed — skipping"
+  rm --force $"($vendor_dir)/starship.nu"
 } else {
   starship init nu
     | save --force $"($vendor_dir)/starship.nu"
@@ -28,6 +31,7 @@ if (which starship | is-empty) {
 # fnm
 if (which fnm | is-empty) {
   print "⚠️  fnm not installed — skipping"
+  rm --force $"($vendor_dir)/fnm.nu"
 } else {
   echo "
 $env.PATH = (

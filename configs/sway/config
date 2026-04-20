@@ -51,10 +51,10 @@ exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
 exec swaync
+exec swayosd-server
+exec libinput-gestures
 
 include /etc/sway/config-vars.d/*
-
-# exec swaybg -i ~/wallpapers/wallhaven-zpp3mg.png  -m fill
 
 ### Output configuration
 #
@@ -77,6 +77,7 @@ output * bg ~/wallpaper/current fill
 #
 exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' 
+
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -195,11 +196,11 @@ for_window [app_id="floating_tui"] {
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 
-      # Cycle to the next active workspace
-    bindsym $mod+s workspace next
+      # Cycle to the next active workspace (creates new one at boundary)
+    bindsym $mod+s exec ~/.config/sway/workspace_next.sh
 
-    # Cycle to the previous active workspace
-    bindsym $mod+a workspace prev
+    # Cycle to the previous active workspace (creates new one at boundary)
+    bindsym $mod+a exec ~/.config/sway/workspace_prev.sh
 #
 # Layout stuff:
 #
@@ -293,5 +294,28 @@ bar {
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
+
+#OSD Bindings
+# Sink volume raise optionally with --device
+bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+# Sink volume lower optionally with --device
+bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume lower 
+# Sink volume toggle mute
+bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
+# Source volume toggle mute
+bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+
+# Capslock (If you don't want to use the backend)
+bindsym --release Caps_Lock exec swayosd-client --caps-lock
+
+# Brightness raise (optionally with --device, can be device name or wildcard)
+bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise 
+# Brightness lower (optionally with --device, can be device name or wildcard)
+bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower 
+
+# Play/Pause current player
+bindsym XF86AudioPlay exec swayosd-client --playerctl play-pause
+# Next song for current player
+bindsym XF86AudioNext exec swayosd-client --playerctl next
 
 include /etc/sway/config.d/*

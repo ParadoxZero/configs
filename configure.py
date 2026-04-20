@@ -102,6 +102,7 @@ def main():
         recursive_link(root / "configs" / "waybar", os.get_waybar_path())
         recursive_link(root / "configs" / "swaylock", os.get_swaylock_path())
         recursive_link(root / "configs" / "swaync", os.get_swaync_path())
+        link(root / "configs" / "libinput-gestures.conf", os.get_libinput_gestures_path())
         output.Good("Configured Sway with Waybar, Swaylock and SwayNC")
 
 if __name__ == "__main__":

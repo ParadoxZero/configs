@@ -163,6 +163,26 @@ window#waybar.hidden {
   font-size: 20px;
 }
 
+#tray {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-right: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: rgba(243, 139, 168, 0.3);
+  border-radius: 8px;
+}
+
 #pulseaudio-slider {
   color: #1A1826;
   min-width: 50px;

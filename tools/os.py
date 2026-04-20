@@ -115,6 +115,9 @@ class Linux(OS):
     def get_swaync_path(self):
         return self.ConfigDir / "swaync"
 
+    def get_libinput_gestures_path(self):
+        return self.ConfigDir / "libinput-gestures.conf"
+
     def __install_lazygit(self):
         output.Info("Fetching latest version of lazygit")
         latest_lazygit = requests.get(
@@ -151,6 +154,7 @@ class Linux(OS):
             "sqlite3",
             "bat",
             "clang",
+            "libinput-gestures",
         ]
         output.Info("Installing dependencies ...Start")
         if not Run("sudo apt update"):
