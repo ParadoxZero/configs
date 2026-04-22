@@ -42,3 +42,18 @@ $env.PATH = (
 )
 " | save --force $"($vendor_dir)/fnm.nu"
 }
+
+# Calendar URL
+print ""
+print "Outlook calendar version:"
+print "  1. Consumer (outlook.cloud.microsoft)  [default]"
+print "  2. Work / School (outlook.office.com)"
+let calendar_choice = (input "Choose [1/2]: " | str trim)
+let calendar_url = if $calendar_choice == "2" {
+  "https://outlook.office.com/calendar/view/week"
+} else {
+  "https://outlook.cloud.microsoft/calendar/view/week"
+}
+$"# Calendar URL for waybar clock click set by init.nu\n$env.CALENDAR_URL = \"($calendar_url)\"\n"
+  | save --force $"($vendor_dir)/calendar_env.nu"
+print $"✔  CALENDAR_URL set to ($calendar_url)"

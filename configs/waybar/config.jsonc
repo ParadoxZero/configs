@@ -46,7 +46,7 @@
   },
   "clock": {
     "format": "| {:%I:%M %p | %d-%m-%y}",
-    "on-click": "xdg-open https://outlook.live.com/calendar/0/view/month",
+    "on-click": "xdg-open ${CALENDAR_URL:-https://outlook.cloud.microsoft/calendar/view/week}",
     "tooltip": false
   },
   "cpu": {

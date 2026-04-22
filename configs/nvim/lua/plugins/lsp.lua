@@ -55,9 +55,13 @@ return {
 			vim.lsp.config("clangd", {
 				cmd = {
 					"clangd",
-					"--background-index",
+					"--background-index=false",
+          "--j=2",
+          "--pch-storage=disk",
+          "--limit-results=20",
 					"--enable-config",
-					"--compile-commands-dir=" .. vim.fn.getcwd(),
+          "--clang-tidy=false",
+          "--header-insertion=never",
 				},
 				init_options = {
 					usePlaceholders = true,
