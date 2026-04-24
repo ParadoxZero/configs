@@ -53,6 +53,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec swaync
 exec swayosd-server
 exec libinput-gestures
+exec ~/.config/sway/sway-display-manager --watch
 
 include /etc/sway/config-vars.d/*
 
@@ -70,6 +71,11 @@ include /etc/sway/config-vars.d/*
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output * bg ~/wallpaper/current fill
+
+# Laptop lid: disable integrated display when closed, re-enable when opened
+# Run `swaymsg -t get_outputs` to confirm your built-in display name
+bindswitch --reload lid:on  output eDP-1 disable
+bindswitch --reload lid:off output eDP-1 enable
 
 ### Idle configuration
 #
@@ -144,6 +150,7 @@ for_window [app_id="floating_tui"] {
     # Notifications
     bindsym $mod+Shift+n exec swaync-client -t -sw
     bindsym $mod+t exec kitten quick-access-terminal
+    bindsym $mod+Shift+d exec $term --class floating_tui -e ~/.config/sway/sway-display-manager --edit
 #
 # Moving around:
 #
