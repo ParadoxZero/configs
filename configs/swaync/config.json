@@ -15,6 +15,7 @@
   "control-center-width": 500,
   "control-center-height": 1035,
   "notification-window-width": 500,
+  "focus_on_window_activation": "focus",
   "keyboard-shortcuts": true,
   "notification-grouping": true,
   "image-visibility": "always",
