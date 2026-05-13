@@ -23,6 +23,11 @@ return {
 		"lewis6991/gitsigns.nvim",
 		enabled = true,
 	},
+  {
+    "spacedentist/resolve.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		-- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
