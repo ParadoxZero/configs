@@ -56,7 +56,6 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec swaync
 exec swayosd-server
 exec libinput-gestures
-exec ~/.config/sway/sway-display-manager --watch
 
 include /etc/sway/config-vars.d/*
 
@@ -112,6 +111,7 @@ for_window [app_id="floating_tui"] {
     # mouse button for dragging.
     floating_modifier $mod normal
 
+    bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
     # Reload the configuration file
     bindsym $mod+Shift+r reload
 
@@ -122,7 +122,6 @@ for_window [app_id="floating_tui"] {
     # Notifications
     bindsym $mod+Shift+n exec swaync-client -t -sw
     bindsym $mod+t exec kitten quick-access-terminal
-    bindsym $mod+Shift+d exec $term --class floating_tui -e ~/.config/sway/sway-display-manager --edit
 #
 # Moving around:
 #
