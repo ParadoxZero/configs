@@ -56,6 +56,7 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec swaync
 exec swayosd-server
 exec libinput-gestures
+exec python3 ~/.config/sway/sway-display-manager
 
 include /etc/sway/config-vars.d/*
 
@@ -114,6 +115,13 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
     # Reload the configuration file
     bindsym $mod+Shift+r reload
+
+    # Display profile: apply saved profile for current output combination
+    bindsym $mod+Shift+d exec python3 ~/.config/sway/sway-display-manager
+    # Display profile: open TUI editor
+    bindsym $mod+Ctrl+d exec $term --class floating_tui python3 ~/.config/sway/sway-display-manager --edit
+    # Display profile: clear all profiles and re-enable all outputs
+    bindsym $mod+Ctrl+Shift+d exec python3 ~/.config/sway/sway-display-manager --reset
 
     bindsym $mod+Shift+Escape exec swaylock 
     # Exit sway (logs you out of your Wayland session)

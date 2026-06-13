@@ -16,6 +16,7 @@
     "temperature"
   ],
   "modules-center": [
+    "idle_inhibitor",
     "sway/workspaces",
     "sway/mode",
   ],

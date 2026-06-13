@@ -6,7 +6,7 @@ the output configuration via swaymsg.
 
 Usage:
   sway-display-manager           apply matching profile (or create default)
-  sway-display-manager --watch   apply on start, then re-apply on hotplug
+  sway-display-manager --reset   delete all profiles and re-enable all outputs
   sway-display-manager --edit    open TUI to edit saved profiles
 """
 
@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 
 STATE_DIR = Path.home() / ".local" / "state" / "swaydisplay"
-PROFILES_FILE = STATE_DIR / "profiles.json"
+PROFILES_FILE = Path.home() / ".config" / "sway" / "display_profiles.json"
 CURRENT_CONF = STATE_DIR / "current.conf"
 
 SNAP_DIST = 20  # pixels — how close an edge must be to snap
@@ -128,18 +128,16 @@ def do_apply():
     print(f"Applied: {profile['name']}", flush=True)
 
 
-def do_watch():
-    do_apply()
-    proc = subprocess.Popen(
-        ["swaymsg", "-m", "-t", "subscribe", '["output"]'],
-        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True,
-    )
-    for line in proc.stdout:
-        if line.strip():
-            try:
-                do_apply()
-            except Exception as e:
-                print(f"Warning: {e}", file=sys.stderr, flush=True)
+def do_reset():
+    outputs = get_outputs()
+    if not outputs:
+        print("No outputs detected (is WAYLAND_DISPLAY set?)", file=sys.stderr)
+        sys.exit(1)
+    for o in outputs:
+        swaymsg(f"output {o['name']} enable")
+    if PROFILES_FILE.exists():
+        PROFILES_FILE.write_text(json.dumps({"profiles": {}}, indent=2))
+    print("Reset: all outputs enabled, all profiles cleared.", flush=True)
 
 
 # ── TUI colours ───────────────────────────────────────────────────────────────
@@ -614,16 +612,16 @@ def tui(stdscr):
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--watch", "-w", action="store_true",
-                    help="Apply profile on start and re-apply on display hotplug")
+    ap.add_argument("--reset", "-r", action="store_true",
+                    help="Delete all profiles and re-enable all outputs")
     ap.add_argument("--edit",  "-e", action="store_true",
                     help="Open TUI editor for display profiles")
     args = ap.parse_args()
 
     if args.edit:
         curses.wrapper(tui)
-    elif args.watch:
-        do_watch()
+    elif args.reset:
+        do_reset()
     else:
         do_apply()
 

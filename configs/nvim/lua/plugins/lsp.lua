@@ -55,13 +55,16 @@ return {
 			vim.lsp.config("clangd", {
 				cmd = {
 					"clangd",
-					"--background-index=false",
-          "--j=2",
-          "--pch-storage=disk",
-          "--limit-results=20",
-					"--enable-config",
+          "--background-index",           -- enable (drop the =false)
+          "--background-index-priority=low",  -- keeps it from hammering CPU
+          "--j=4",                        -- bump threads; tune to your core count
+          "--pch-storage=memory",         -- faster than disk if you have RAM to spare
+          "--limit-results=0",            -- no cap on results
+          "--enable-config",
           "--clang-tidy=false",
           "--header-insertion=never",
+          "--all-scopes-completion",      -- complete symbols outside current file scope
+          "--completion-style=detailed",
 				},
 				init_options = {
 					usePlaceholders = true,
