@@ -134,7 +134,7 @@
     "tooltip-format-ethernet": "  {ifname}: {ipaddr}/{cidr}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
-    "on-click": "kitty --class floating_tui -e nmtui connect"
+    "on-click": "kitty --class floating_tui  impala"
   },
   "battery": {
     "format": "{capacity}%",
