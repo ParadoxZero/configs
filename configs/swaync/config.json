@@ -52,48 +52,6 @@
     },
     "buttons-grid": {
       "actions": [
-        {
-          "label": "󰐥",
-          "command": "systemctl poweroff"
-        },
-        {
-          "label": "󰜉",
-          "command": "systemctl reboot"
-        },
-        {
-          "label": "󰌾",
-          "command": "playerctl pause | $HOME/.config/sway/swaylock-corrupter.sh"
-        },
-        {
-          "label": "󰍃",
-          "command": "swaymsg exit"
-        },
-        {
-          "label": "󰆴",
-          "command": "swaync-client -C"
-        },
-        {
-          "label": "󰕾",
-          "command": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-          "type": "toggle"
-        },
-        {
-          "label": "󰍬",
-          "command": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-          "type": "toggle"
-        },
-        {
-          "label": "󰖩",
-          "command": "iwgtk"
-        },
-        {
-          "label": "󰂯",
-          "command": "blueman-manager"
-        },
-        {
-          "label": "",
-          "command": "kooha"
-        }
       ]
     }
   }

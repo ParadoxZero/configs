@@ -6,8 +6,8 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-set $mod Mod1
+# Logo key. Use Mod1 for Alt. Mod4 for windows/super
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -159,6 +159,7 @@ for_window [app_id="floating_tui"] {
 # Workspaces:
 #
     # Switch to workspace
+    bindsym $mod+0 workspace number 0
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
@@ -168,8 +169,8 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
     # Move focused container to workspace
+    bindsym $mod+Shift+0 move container to workspace number 0
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
     bindsym $mod+Shift+3 move container to workspace number 3
@@ -179,15 +180,14 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Shift+7 move container to workspace number 7
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 
       # Cycle to the next active workspace (creates new one at boundary)
-    bindsym $mod+s exec ~/.config/sway/workspace_next.sh
+    bindsym $mod+Tab exec ~/.config/sway/workspace_next.sh
 
     # Cycle to the previous active workspace (creates new one at boundary)
-    bindsym $mod+a exec ~/.config/sway/workspace_prev.sh
+    bindsym $mod+Shift+Tab exec ~/.config/sway/workspace_prev.sh
 #
 # Layout stuff:
 #
@@ -252,16 +252,16 @@ bindsym $mod+r mode "resize"
 #
 # Utilities:
 #
-    # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-    # Special keys to adjust brightness via brightnessctl
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # Special key to take a screenshot with grim
-    bindsym Print exec grim
+# Special keys to adjust volume via PulseAudio
+bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+# Special keys to adjust brightness via brightnessctl
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+# Special key to take a screenshot with grim
+bindsym Print exec grim
 
 #
 # Status Bar:
