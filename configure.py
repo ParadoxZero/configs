@@ -23,6 +23,7 @@ SOFTWARE.
 """
 from pathlib import Path
 import shutil
+import sys
 from core import OSType, get_os
 import core.output as output
 import argparse
@@ -49,6 +50,33 @@ def link(source: Path, target: Path):
         target.unlink()
     target.symlink_to(source)
 
+def check_binaries(os) -> bool:
+    # Missing core binaries fail the check; desktop/dev are informational
+    # since servers are not expected to have them.
+    missing_core = 0
+    missing_other = 0
+    for group in ("core", "desktop", "dev"):
+        entries = [e for e in os.required_binaries() if e[1] == group]
+        if not entries:
+            continue
+        output.Info(f"[{group}]")
+        for binary, _, hint in entries:
+            if shutil.which(binary):
+                output.Good(binary)
+            else:
+                output.Bad(f"{binary} — {hint}")
+                if group == "core":
+                    missing_core += 1
+                else:
+                    missing_other += 1
+    if missing_core:
+        output.Bad(f"{missing_core} core binaries missing")
+    else:
+        output.Good("All core binaries present")
+    if missing_other:
+        output.Info(f"{missing_other} desktop/dev binaries missing (fine on servers)")
+    return missing_core == 0
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -56,10 +84,17 @@ def main():
         action="store_true",
         help="Skip installing dependencies"
     )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Check for binaries referenced by the configs and exit"
+    )
     args = parser.parse_args()
 
     os = get_os()
     output.Info(f"Detected platform - {os.name()}")
+    if args.check:
+        sys.exit(0 if check_binaries(os) else 1)
     if not args.skip_deps:
         if not os.install_dependencies():
             return

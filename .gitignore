@@ -7,3 +7,4 @@ configs/nvim/lazy-lock.json
 *.sqlite3
 *.sqlite3-shm
 *.sqlite3-wal
+*.bak
