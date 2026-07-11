@@ -27,18 +27,18 @@ nu init.nu
 
 ### Entry point: `configure.py`
 
-Calls into `tools/os.py` to detect the platform, optionally installs dependencies, then symlinks each `configs/<tool>/` directory (or individual files) into OS-specific config paths using two helpers:
+Calls into `core/` to detect the platform, optionally installs dependencies, then symlinks each `configs/<tool>/` directory (or individual files) into OS-specific config paths using two helpers:
 - `link(source, target)` — symlinks a single file, removing any existing file first
 - `recursive_link(source_dir, target_dir)` — removes the target dir/symlink entirely, then symlinks the whole source directory
 
-### `tools/os.py` — platform abstraction
+### `core/` — platform abstraction
 
-Base class `OS` defines `get_*_path()` methods for each tool's config location. Three subclasses override paths for their platform:
-- `Win` — `%LOCALAPPDATA%` / `%APPDATA%`, no tmux/kitty, uses GlazeWM
-- `Linux` — `~/.config`, includes Sway + Waybar + Swaylock
-- `MacOS` — `~/.config` (nushell at `~/Library/Application Support/nushell`), brew-based deps
+`core/base.py` defines the `OS` base class with `get_*_path()` methods for each tool's config location and `OSType` enum. Three per-platform subclasses override paths for their platform:
+- `core/windows.py` (`Win`) — `%LOCALAPPDATA%` / `%APPDATA%`, no tmux/kitty, uses GlazeWM
+- `core/linux.py` (`Linux`) — `~/.config`, includes Sway + Waybar + Swaylock
+- `core/macos.py` (`MacOS`) — `~/.config` (nushell at `~/Library/Application Support/nushell`), brew-based deps
 
-`get_os()` is the factory function that returns the correct subclass.
+`core/__init__.py` exports `get_os()`, the factory function that returns the correct subclass. `core/shell.py` and `core/output.py` provide subprocess and terminal output helpers.
 
 ### Platform-specific tool coverage
 
