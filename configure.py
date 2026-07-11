@@ -23,8 +23,8 @@ SOFTWARE.
 """
 from pathlib import Path
 import shutil
-from tools.os import OSType, get_os 
-import tools.output as output
+from core import OSType, get_os
+import core.output as output
 import argparse
 
 def recursive_link(source_dir: Path, target_dir: Path):
