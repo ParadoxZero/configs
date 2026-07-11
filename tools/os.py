@@ -100,7 +100,7 @@ class Linux(OS):
     def __init__(self) -> None:
         config_dir = Path.home() / ".config"
         super().__init__(OSType.LINUX, config_dir)
-        self.cargo_deps += ['impala']
+        self.cargo_deps += ['impala', 'waycal']
 
     def get_sway_path(self):
         return self.ConfigDir / "sway"
@@ -175,6 +175,9 @@ class Linux(OS):
             "bat",
             "clang",
             "libinput-gestures",
+            "libgtk-4-dev",
+            "libgtk4-layer-shell-dev",
+            "pkg-config"
         ]
         output.Info("Installing dependencies ...Start")
         if not Run("sudo apt update"):

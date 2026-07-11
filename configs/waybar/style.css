@@ -24,6 +24,7 @@ window#waybar.hidden {
 #custom-bluetooth,
 #custom-archicon,
 #clock,
+#custom-waycal,
 #cpu,
 #memory,
 #disk,
@@ -71,21 +72,34 @@ window#waybar.hidden {
   color: #89B4FA;
   padding-left: 10px;
   padding-right: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 10px;
+}
+#custom-waycal {
+  font-size: 18px;
+  background: #161320;
+  color: #89B4FA;
+  margin-left: 5px;
+  border-radius: 10px;
+}
+
+#idle_inhibitor {
+  background: #161320;
+  color: #89B4FA;
+  border-radius: 10px;
+  margin-left: 10px;
+  font-size: 18px;
 }
 
 #cpu,
 #memory,
 #disk,
 #temperature {
-  color: #FFFFFF;
+  background: #161320;
+  color: #89B4FA;
 }
 
 #cpu {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 #temperature {
@@ -93,9 +107,9 @@ window#waybar.hidden {
   border-bottom-right-radius: 8px;
 }
 
-/* Modules center */
 #workspaces {
-  background: rgba(0, 0, 0, 0.5);
+  background: #161320;
+  color: #89B4FA;
   border-radius: 10px;
   margin: 5px 5px;
   padding: 0px 5px;
@@ -103,19 +117,22 @@ window#waybar.hidden {
 
 #workspaces button {
   color: #B5E8E0;
-  background: transparent;
-  padding: 4px 4px;
+  margin: 0px 0px;
+  padding: 0px 5px;
+  background: #161320;
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
-  border-radius: 10px;
-  font-size: 22px;
+  border-radius: 8px;
+  font-size: 18px;
 }
 
 #workspaces button.focused {
-  background: rgba(255, 255, 255, 0.2);
+  background: #D5ECCA;
+  color: #4B6A84;
 }
 
 #workspaces button.active {
-  background: rgba(255, 255, 255, 0.2);
+  background: #ffffff;
+  color: #4B6A84;
 }
 
 #workspaces button.urgent {
@@ -124,7 +141,8 @@ window#waybar.hidden {
 
 
 #workspaces button:hover {
-  color: #89B4FA;
+  background: #C07BE5;
+  color: #06200C;
 }
 
 #workspaces button.active:hover {}
@@ -154,13 +172,6 @@ window#waybar.hidden {
   background: rgba(34, 36, 54, 0.5);
 }
 
-#idle_inhibitor {
-  color: #89B4FA;
-  border-radius: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 20px;
-}
 
 #tray {
   background: rgba(0, 0, 0, 0.5);
@@ -183,13 +194,15 @@ window#waybar.hidden {
 }
 
 #pulseaudio-slider {
-  color: #1A1826;
+  color: #89B4FA;
   min-width: 50px;
   border-radius: 8px;
   margin-right: 5px;
 }
 
-#pulseaudio-slider slider {}
+#pulseaudio-slider slider {
+  color: #89B4FA;
+}
 
 #custom-bluetooth {
   font-size: 20px;

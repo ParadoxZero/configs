@@ -9,16 +9,17 @@
   /* === Modules Order === */
   "modules-left": [
     "custom/archicon",
-    "clock",
     "cpu",
     "memory",
     "disk",
-    "temperature"
+    "temperature",
+    "sway/workspaces",
   ],
   "modules-center": [
-    "idle_inhibitor",
-    "sway/workspaces",
+    "clock",
+    "custom/waycal",
     "sway/mode",
+    "idle_inhibitor",
   ],
   "modules-right": [
     "tray",
@@ -46,9 +47,21 @@
     "tooltip": false
   },
   "clock": {
-    "format": "| {:%I:%M %p | %d-%m-%y}",
+    "format": "{:%I:%M %p | %d-%m-%y}",
     "on-click": "xdg-open ${CALENDAR_URL:-https://outlook.cloud.microsoft/calendar/view/week}",
     "tooltip": false
+  },
+  "custom/waycal": {
+    "format": " 󰃭 ",
+    "on-click":"~/.config/waybar/waycal.sh",
+    "tooltip-format": "Calendar"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "  ",
+      "deactivated": "  "
+    }
   },
   "cpu": {
     "format": "{usage}% ",
@@ -68,7 +81,7 @@
   "temperature": {
     "format": "{temperatureC}°C {icon}",
     "tooltip": true,
-    "tooltip-format": "Current temperature: {temperatureC}°C\nCrítico si > 80°C",
+    "tooltip-format": "Current temperature: {temperatureC}°C\nCritical > 80°C",
     "format-icons": [
       ""
     ]
@@ -100,13 +113,6 @@
     "ignore-list": [
       "rofi"
     ]
-  },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    }
   },
   "pulseaudio/slider": {
     "format": "{volume}%",
