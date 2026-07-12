@@ -73,10 +73,15 @@ window#waybar.hidden {
 #custom-waycal {
   font-size: 18px;
   background: @green;
-  color: @crust;
+  color: @text-dark;
   margin-left: 5px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+}
+
+#custom-waycal.activated {
+  background: @green;
+  color: @crust;
 }
 
 #clock {
@@ -94,25 +99,25 @@ window#waybar.hidden {
 #memory,
 #disk,
 #temperature {
-  color: @text-dark;
+  background: @mantle;
 }
 
 #cpu {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background: @teal;
+  color: @teal;
 }
 
 #memory {
-  background: @peach;
+  color: @peach;
 }
 
 #disk {
-  background: @maroon;
+  color: @maroon;
 }
 
 #temperature {
-  background: @lavender;
+  color: @lavender;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
@@ -123,6 +128,12 @@ window#waybar.hidden {
   border-radius: 10px;
   margin-left: 5px;
   font-size: 18px;
+  transition: text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#idle_inhibitor.activated {
+  background: @red;
+  color: @text-dark;
 }
 
 #workspaces {
