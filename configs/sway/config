@@ -129,6 +129,8 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Tab mode swtchr; exec swtchr
     bindsym $mod+Shift+Tab mode swtchr; exec swtchr
 
+    bindsym $mod+c exec fuzzel -l 0 --placeholder "Enter your command" --dmenu | xargs -0 -r kitty --class floating_tui sh -c
+
     # This is important! More information below.
     mode swtchr bindsym Backspace mode default
     
