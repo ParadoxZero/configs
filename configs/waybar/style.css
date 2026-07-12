@@ -35,7 +35,7 @@
 }
 
 window#waybar {
-  background: shade(@base, 0.5);
+  background: alpha(@base, 0.3);
 }
 
 #waybar > box {

@@ -24,7 +24,7 @@ smart_gaps on
 smart_borders on
 focus_on_window_activation focus
 
-client.focused          #61afef #285577 #ffffff #61afef #61afef
+client.focused          #a6e3a1 #285577 #ffffff #61afef #a6e3a1
 client.unfocused        #333333 #222222 #888888 #292d2e #222222
 client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
 
@@ -101,7 +101,7 @@ for_window [app_id="floating_tui"] {
     # Start a terminal
     bindsym $mod+Return exec $term
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
     # Start your launcher
     bindsym $mod+Space exec $menu
     # Special key to take a screenshot with grim
