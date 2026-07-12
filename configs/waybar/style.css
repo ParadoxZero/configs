@@ -1,3 +1,31 @@
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink #f5c2e7;
+@define-color mauve #cba6f7;
+@define-color red #f38ba8;
+@define-color maroon #eba0ac;
+@define-color peach #fab387;
+@define-color yellow #f9e2af;
+@define-color green #a6e3a1;
+@define-color teal #94e2d5;
+@define-color sky #89dceb;
+@define-color sapphire #74c7ec;
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color text #cdd6f4;
+@define-color text-dark #06200C;
+@define-color subtext1 #bac2de;
+@define-color subtext0 #a6adc8;
+@define-color overlay2 #9399b2;
+@define-color overlay1 #7f849c;
+@define-color overlay0 #6c7086;
+@define-color surface2 #585b70;
+@define-color surface1 #45475a;
+@define-color surface0 #313244;
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+
 /* -- Global rules -- */
 * {
   border: none;
@@ -7,7 +35,7 @@
 }
 
 window#waybar {
-  background: rgba(0, 0, 0, 0);
+  background: shade(@base, 0.5);
 }
 
 #waybar > box {
@@ -34,122 +62,103 @@ window#waybar.hidden {
 #pulseaudio-slider,
 #network,
 #language {
-  color: #161320;
+  color: @text;
   margin-top: 6px;
   margin-bottom: 6px;
   padding-left: 10px;
   padding-right: 10px;
   transition: none;
-  background: rgba(0, 0, 0, 0.5);
 }
 
-/* Separation to the left */
-#custom-archicon {
+#custom-waycal {
+  font-size: 18px;
+  background: @green;
+  color: @crust;
   margin-left: 5px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
 
-/* Separation to the rigth */
-#language {
-  margin-right: 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* -- Specific styles -- */
-
-/* Modules left */
-#custom-archicon {
-  font-size: 20px;
-  color: #89B4FA;
-  background: #161320;
-  padding-right: 0px;
-}
-
 #clock {
-  background: #161320;
-  color: #89B4FA;
+  background: @surface0;
+  color: @green;
   padding-left: 10px;
   padding-right: 10px;
-  border-radius: 10px;
-}
-#custom-waycal {
-  font-size: 18px;
-  background: #161320;
-  color: #89B4FA;
-  margin-left: 5px;
-  border-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-right: 20px;
 }
 
-#idle_inhibitor {
-  background: #161320;
-  color: #89B4FA;
-  border-radius: 10px;
-  margin-left: 10px;
-  font-size: 18px;
-}
 
 #cpu,
 #memory,
 #disk,
 #temperature {
-  background: #161320;
-  color: #89B4FA;
+  color: @text-dark;
 }
 
 #cpu {
-  margin-left: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: @teal;
+}
+
+#memory {
+  background: @peach;
+}
+
+#disk {
+  background: @maroon;
 }
 
 #temperature {
+  background: @lavender;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
+#idle_inhibitor {
+  background: @mantle;
+  color: @text;
+  border-radius: 10px;
+  margin-left: 5px;
+  font-size: 18px;
+}
+
 #workspaces {
-  background: #161320;
-  color: #89B4FA;
+  background: @mantle;
+  color: @text;
   border-radius: 10px;
   margin: 5px 5px;
   padding: 0px 5px;
 }
 
 #workspaces button {
-  color: #B5E8E0;
   margin: 0px 0px;
   padding: 0px 5px;
-  background: #161320;
-  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+  transition: text-shadow 0.3s ease, transform 0.3s ease;
   border-radius: 8px;
   font-size: 18px;
 }
 
-#workspaces button.focused {
-  background: #D5ECCA;
-  color: #4B6A84;
+#workspaces button:hover {
+  background: @overlay2;
+  color: @text-dark;
 }
 
-#workspaces button.active {
-  background: #ffffff;
-  color: #4B6A84;
+#workspaces button.focused {
+  background: @yellow;
+  color: @text-dark;
 }
 
 #workspaces button.urgent {
-  background-color: #ff0000;
+  background-color: @red;
+  color: @text-dark;
 }
 
-
-#workspaces button:hover {
-  background: #C07BE5;
-  color: #06200C;
-}
-
-#workspaces button.active:hover {}
 
 /* Modules right */
 #taskbar {
-  background: transparent;
   border-radius: 10px;
   padding: 0px 5px;
   margin: 6px 5px;
@@ -174,11 +183,9 @@ window#waybar.hidden {
 
 
 #tray {
-  background: rgba(0, 0, 0, 0.5);
+  background: @surface0;
   border-radius: 8px;
-  margin-top: 6px;
-  margin-bottom: 6px;
-  margin-right: 5px;
+  margin: 8px;
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -189,48 +196,42 @@ window#waybar.hidden {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background-color: rgba(243, 139, 168, 0.3);
+  background-color: @red;
   border-radius: 8px;
 }
 
 #pulseaudio-slider {
-  color: #89B4FA;
   min-width: 50px;
-  border-radius: 8px;
   margin-right: 5px;
-}
-
-#pulseaudio-slider slider {
-  color: #89B4FA;
 }
 
 #custom-bluetooth {
   font-size: 20px;
-  color: #89B4FA;
+  color: @text-dark;
+  background: @sapphire;
   padding-right: 10px;
   padding-left: 10px;
-  border-radius: 8px;
-  margin-right: 5px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 #network {
-  padding-right: 20px;
-  color: #89B4FA;
+  color: @text-dark;
+  background: @sapphire;
+  border-left: 1px groove shade(@crust, 0.9);
   font-size: 20px;
-  border-radius: 8px;
+  padding-right: 10px;
+  padding-left: 10px;
   margin-right: 5px;
-}
-
-#language {
-  background: #A6E3A1;
-  padding-right: 15px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 #custom-notification {
-  background: rgba(0, 0, 0, 0.5);
-  color: #89B4FA;
+  background: @mauve;
+  color: @text-dark;
   padding-left: 10px;
-  padding-right: 6px;
+  padding-right: 10px;
   font-size: 15px;
   margin-top: 6px;
   margin-bottom: 6px;
@@ -239,25 +240,27 @@ window#waybar.hidden {
 }
 
 #battery {
-  background: rgba(0, 0, 0, 0.5);
-  color: #89B4FA;
+  background: @mauve;
+  color: @text-dark;
+  border-left: 1px groove shade(@crust, 0.9);
   padding-left: 10px;
-  padding-right: 6px;
+  padding-right: 10px;
   font-size: 15px;
   margin-top: 6px;
   margin-bottom: 6px;
 }
 
 #custom-power {
-  background: rgba(0, 0, 0, 0.5);
-  color: #89B4FA;
+  background: @mauve;
+  color: @text-dark;
+  border-left: 1px groove shade(@crust, 0.9);
   padding-left: 10px;
   padding-right: 10px;
   font-size: 20px;
   margin-top: 6px;
   margin-bottom: 6px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
   margin-right: 5px;
 }
 

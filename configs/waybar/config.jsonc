@@ -8,21 +8,21 @@
   "gtk-layer-shell": true,
   /* === Modules Order === */
   "modules-left": [
-    "custom/archicon",
+    "custom/waycal",
+    "clock",
     "cpu",
     "memory",
     "disk",
     "temperature",
-    "sway/workspaces",
   ],
   "modules-center": [
-    "clock",
-    "custom/waycal",
-    "sway/mode",
     "idle_inhibitor",
+    "sway/workspaces",
+    "sway/mode",
   ],
   "modules-right": [
     "tray",
+    "taskbar",
     "pulseaudio/slider",
     "custom/bluetooth",
     "network",
@@ -131,13 +131,13 @@
     }
   },
   "network": {
-    "format-wifi": "<span size='large'></span>  {essid}",
+    "format-wifi": "<span size='large'></span> {essid}",
     "format-ethernet": "<span size='large'>󰈀</span>  Ethernet",
-    "format-linked": "<span size='large'>󰈀</span>  {ifname} (No IP)",
-    "format-disconnected": "⚠  Disconnected",
+    "format-linked": "<span size='large'>󰈀</span>{ifname} (No IP)",
+    "format-disconnected": "⚠ Disconnected",
     "tooltip-format": "  {ifname} via {gwaddr}",
-    "tooltip-format-wifi": "  {essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "  {ifname}: {ipaddr}/{cidr}",
+    "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
     "on-click": "kitty --class floating_tui  impala"
