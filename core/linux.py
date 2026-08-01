@@ -122,6 +122,19 @@ Desktop (Sway) stack — skip on servers:
     swtchr   — cargo install --git https://github.com/justlark/swtchr swtchr
     bluetui  — cargo install bluetui
 
+Laptop lid suspend behavior — laptops only, needs root, not applied automatically:
+    sway/config's `bindswitch lid:on` runs configs/sway/lid-suspend, which only
+    suspends if no external display is connected. For that to work without
+    logind suspending independently first, hand lid handling entirely to sway:
+        sudo mkdir -p /etc/systemd/logind.conf.d
+        sudo tee /etc/systemd/logind.conf.d/99-lid-ignore.conf > /dev/null <<'EOF'
+[Login]
+HandleLidSwitch=ignore
+HandleLidSwitchDocked=ignore
+HandleLidSwitchExternalPower=ignore
+EOF
+        sudo systemctl restart systemd-logind
+
 Dev tools — managed via Mason inside nvim (:Mason), do not apt-install:
     clangd, pyright, emmylua_ls
     gdb      — sudo apt install gdb (only if debugging locally)

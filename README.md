@@ -18,3 +18,16 @@ python configure.py
 
 Nil, this is supposed to be a lightweight script. As such, it will only depend standard library and nothing more.
 
+## Laptop lid behavior (Sway, Linux)
+
+Closing the lid disables the built-in display (`eDP-1`) and, via
+`configs/sway/lid-suspend`, suspends the machine — but only if no external
+display is connected at that moment. Reconnecting/disconnecting a display
+later while the lid stays closed does not re-trigger the check.
+
+This requires `systemd-logind` to not suspend on lid close on its own, which
+needs a one-time, root-owned system config that `configure.py` does not (and
+will not) apply automatically. Run `python configure.py` (without
+`--skip-deps`) and read the "Laptop lid suspend behavior" section it prints
+(or see `core/linux.py`) for the exact commands.
+

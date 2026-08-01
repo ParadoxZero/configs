@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Runs on lid-close (see sway config `bindswitch lid:on`). Suspends only if
+# no external display is connected; if one is connected, the lid closing
+# just disables eDP-1 (handled separately) and the machine stays awake.
+external=$(swaymsg -t get_outputs -r | jq '[.[] | select(.name != "eDP-1")] | length')
+
+if [ "$external" -eq 0 ]; then
+    systemctl suspend
+fi

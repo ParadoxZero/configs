@@ -65,9 +65,10 @@ include /etc/sway/config-vars.d/*
 ### Output configuration
 output * bg ~/wallpaper/current fill
 
-# Laptop lid: disable integrated display when closed, re-enable when opened
+# Laptop lid: disable integrated display when closed, re-enable when opened.
+# On close, also suspend — but only if no external display is connected.
 # Run `swaymsg -t get_outputs` to confirm your built-in display name
-bindswitch --reload lid:on  output eDP-1 disable
+bindswitch --reload lid:on  output eDP-1 disable, exec ~/.config/sway/lid-suspend
 bindswitch --reload lid:off output eDP-1 enable
 
 ### Idle configuration

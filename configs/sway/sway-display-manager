@@ -37,12 +37,12 @@ FIELD_LABELS = {
 # ── sway / data helpers ───────────────────────────────────────────────────────
 
 def swaymsg(*args):
-    result = subprocess.run(["swaymsg", *args], capture_output=True, text=True)
+    result = subprocess.run(["swaymsg", *args] , capture_output=True, text=True)
     return result.stdout, result.returncode == 0
 
 
 def get_outputs():
-    out, ok = swaymsg("-t", "get_outputs")
+    out, ok = swaymsg("-r","-t", "get_outputs")
     if not ok:
         return []
     try:
@@ -51,8 +51,17 @@ def get_outputs():
         return []
 
 
+def display_key(output):
+    return ".".join([output["make"],output["model"], output["serial"]])
+
+
 def profile_key(outputs):
-    return "+".join(sorted(o["name"] for o in outputs))
+    return "+".join(sorted(display_key(o) for o in outputs))
+
+
+def sway_identifier(cfg):
+    """Sway output criteria for this display: '"<make> <model> <serial>"'."""
+    return '"{} {} {}"'.format(cfg["make"], cfg["model"], cfg["serial"])
 
 
 def default_output_cfg(output):
@@ -67,6 +76,10 @@ def default_output_cfg(output):
         "height": mode.get("height"),
         "refresh_hz": round(refresh_mhz / 1000, 3) if refresh_mhz else None,
         "scale": output.get("scale", 1.0),
+        "name": output.get("name"),
+        "make": output.get("make"),
+        "model": output.get("model"),
+        "serial": output.get("serial"),
     }
 
 
@@ -83,31 +96,28 @@ def save_data(data):
         json.dump(data, f, indent=2)
 
 
-def output_cmd(name, cfg):
+def output_cmd(cfg):
+    ident = sway_identifier(cfg)
     if not cfg.get("enabled", True):
-        return f"output {name} disable"
-    parts = [f"output {name} enable"]
+        return ["output", ident, "disable"]
+    parts = ["output", ident]
+    if cfg.get("scale"):
+        parts.append(f"scale {cfg['scale']}")
+    parts.append("enable")
     if cfg.get("width") and cfg.get("height"):
         res = f"{cfg['width']}x{cfg['height']}"
         if cfg.get("refresh_hz"):
             res += f"@{cfg['refresh_hz']:.3f}Hz"
         parts.append(f"resolution {res}")
     if cfg.get("x") is not None and cfg.get("y") is not None:
-        parts.append(f"position {cfg['x']},{cfg['y']}")
-    if cfg.get("scale"):
-        parts.append(f"scale {cfg['scale']}")
-    return " ".join(parts)
+        parts.append(f"position {cfg['x']} {cfg['y']}")
+    return parts
 
 
 def apply_profile(profile):
-    cmds = [output_cmd(n, c) for n, c in profile["outputs"].items()]
+    cmds = [output_cmd(c) for c in profile["outputs"].values()]
     for cmd in cmds:
-        swaymsg(cmd)
-    STATE_DIR.mkdir(parents=True, exist_ok=True)
-    with open(CURRENT_CONF, "w") as f:
-        f.write(f"# Profile: {profile['name']}\n")
-        f.write("\n".join(cmds) + "\n")
-
+        swaymsg(*cmd)
 
 def do_apply():
     outputs = get_outputs()
@@ -119,7 +129,7 @@ def do_apply():
     if key not in data["profiles"]:
         data["profiles"][key] = {
             "name": key,
-            "outputs": {o["name"]: default_output_cfg(o) for o in outputs},
+            "outputs": {display_key(o): default_output_cfg(o) for o in outputs},
         }
         save_data(data)
         print(f"Created profile for: {key}", flush=True)
@@ -171,7 +181,7 @@ def footer(win, hints):
     h, w = win.getmaxyx()
     s = "  ".join(f"[{k}]{v}" for k, v in hints)
     win.attron(curses.color_pair(C_KEY))
-    win.addstr(h - 1, 0, s[:w])
+    win.addstr(h - 1, 0, s[:w - 1])
     win.attroff(curses.color_pair(C_KEY))
 
 
@@ -316,13 +326,13 @@ def screen_arrange(stdscr, data, key):
                 attr = curses.color_pair(C_DIM)
             else:
                 attr = curses.color_pair(C_YEL)
-            _draw_box(stdscr, r, c, bh, bw, name, attr, sh, sw)
+            _draw_box(stdscr, r, c, bh, bw, cfg.get("name") or name, attr, sh, sw)
 
         # Status: selected display info
         sel_name = out_names[sel]
         sel_cfg  = cfgs[sel_name]
         snap_str = "on" if snap_on else "off"
-        info = (f" {sel_name}:  x={sel_cfg.get('x', 0):5d}  y={sel_cfg.get('y', 0):5d}"
+        info = (f" {sel_cfg.get('name') or sel_name}:  x={sel_cfg.get('x', 0):5d}  y={sel_cfg.get('y', 0):5d}"
                 f"   {pw(sel_cfg)}x{ph(sel_cfg)}   snap={snap_str} ")
         try:
             stdscr.addstr(sh - 4, 0, info[:sw], curses.color_pair(C_YEL) | curses.A_BOLD)
@@ -444,7 +454,7 @@ def _new_profile(stdscr, data):
         return
     data["profiles"].setdefault(key, {
         "name": name or key,
-        "outputs": {o["name"]: default_output_cfg(o) for o in outputs},
+        "outputs": {display_key(o): default_output_cfg(o) for o in outputs},
     })
     data["profiles"][key]["name"] = name or key
     save_data(data)
@@ -534,8 +544,9 @@ def screen_edit(stdscr, data, key):
             if row >= h - 2:
                 break
             cfg = profile["outputs"][out_name]
+            label = cfg.get("name") or out_name
             stdscr.attron(curses.color_pair(C_YEL) | curses.A_BOLD)
-            stdscr.addstr(row, 1, out_name[:w - 2])
+            stdscr.addstr(row, 1, label[:w - 2])
             stdscr.attroff(curses.color_pair(C_YEL) | curses.A_BOLD)
             row += 1
             for fi, field in enumerate(FIELDS):
