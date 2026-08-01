@@ -84,8 +84,9 @@ for_window [class=".*"] opacity 0.95
 for_window [app_id=".*"] opacity 0.95
 
 
-# Make Versa SASE client float
+# Make some apps float by default
 for_window [class="VersaSecureAccessClient"] floating enable
+for_window [class="qbittorrent"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
 for_window [app_id="floating_tui"] {
@@ -166,7 +167,7 @@ for_window [app_id="floating_tui"] {
 # Workspaces:
 #
     # Switch to workspace
-    bindsym $mod+0 workspace number 0
+    bindsym $mod+0 workspace number 10
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
@@ -177,7 +178,7 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     # Move focused container to workspace
-    bindsym $mod+Shift+0 move container to workspace number 0
+    bindsym $mod+Shift+0 move container to workspace number 10
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
     bindsym $mod+Shift+3 move container to workspace number 3
