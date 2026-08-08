@@ -63,7 +63,7 @@ Contains the actual config files per tool. Editing files here is how you make co
 
 ### Dependency notes
 
-- Linux installs via `apt` + cargo; lazygit is fetched directly from GitHub releases (uses `requests` library)
+- Linux installs via `apt` + cargo. The `core/` code is stdlib-only — no third-party Python deps. The lazygit/neovim GitHub-release installers are currently commented out in `core/linux.py`; if re-enabled they use `curl` + `jq`, both already in the apt dep list.
 - macOS installs via Homebrew
 - Windows installs via `winget`
 - Cargo deps (all platforms): `tree-sitter-cli`, `zoxide`, `nu`, `eza`, `yatzi`, `bat`

@@ -1,6 +1,3 @@
-
-source ./ubuntu_alias.nu
-
 # Third Party tools
 
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
@@ -36,6 +33,12 @@ alias rjs =  rg -tjs
 # Kubernetes utils
 #
 
+if (which kubectl | is-empty) {
+  print "Setting microk8s kubectl as kubectl"
+  alias kubectl = microk8s kubectl
+}
+
+alias k = kubectl
 alias kpods = kubectl get pods --all-namespaces
 def klogs [$pod] {
   

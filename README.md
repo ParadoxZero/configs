@@ -31,3 +31,8 @@ will not) apply automatically. Run `python configure.py` (without
 `--skip-deps`) and read the "Laptop lid suspend behavior" section it prints
 (or see `core/linux.py`) for the exact commands.
 
+## Enabling Fast Connection in BlueZ
+1. Open the main Bluetooth configuration file in a text editor: `sudoedit /etc/bluetooth/main.conf`
+2. Find the line `#FastConnectable = false` and change it to `FastConnectable = true`.
+3. Ensure `AutoEnable=true` is also uncommented under the `[Policy]` section.
+4. Save the file and restart the Bluetooth service: `sudo systemctl restart bluetooth`

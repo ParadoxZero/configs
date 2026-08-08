@@ -1,6 +1,5 @@
 from pathlib import Path
 from typing import override
-import requests
 
 from core.base import OS, OSType
 from core.shell import Run
@@ -33,11 +32,19 @@ class Linux(OS):
         d.mkdir(exist_ok=True)
         return d
 
+    def __download(self, url: str, dest: Path) -> bool:
+        # -f fail on HTTP errors, -L follow redirects, -o write to dest
+        return bool(Run(f"curl -fL --progress-bar -o {dest} {url}"))
+
     def __install_lazygit(self):
         output.Info("Fetching latest version of lazygit")
-        latest_lazygit = requests.get(
-            "https://api.github.com/repos/jesseduffield/lazygit/releases/latest").json()
-        tag_name = latest_lazygit["tag_name"].lstrip("v")
+        result = Run(
+            "curl -fsSL https://api.github.com/repos/jesseduffield/lazygit/releases/latest"
+            " | jq -r .tag_name", capture_output=True)
+        if not result:
+            output.Bad("Failed to query latest lazygit release")
+            return
+        tag_name = result.Output.strip().lstrip("v")
         output.Info(f"Found - lazygit v{tag_name}")
         toolchain = self.__toolchain_dir()
         lazygit_bin = toolchain / "lazygit"
@@ -45,10 +52,9 @@ class Linux(OS):
         if not lazygit_archive_path.exists():
             output.Info("Downloading lazygit to ~/toolchain")
             url = f"https://github.com/jesseduffield/lazygit/releases/download/v{tag_name}/lazygit_{tag_name}_Linux_x86_64.tar.gz"
-            r = requests.get(url, stream=True)
-            with open(lazygit_archive_path, "wb") as f:
-                for chunk in r.iter_content(8192):
-                    f.write(chunk)
+            if not self.__download(url, lazygit_archive_path):
+                output.Bad("Failed to download lazygit. Install Manually...")
+                return
         else:
             output.Info("Latest lazygit already downloaded ...Skipping")
 
@@ -67,10 +73,9 @@ class Linux(OS):
         toolchain = self.__toolchain_dir()
         nvim_path = toolchain / "nvim.appimage"
         url = "https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage"
-        r = requests.get(url, stream=True)
-        with open(nvim_path, "wb") as f:
-            for chunk in r.iter_content(8192):
-                f.write(chunk)
+        if not self.__download(url, nvim_path):
+            output.Bad("Failed to download neovim. Install Manually...")
+            return
         nvim_path.chmod(0o755)
         output.Info("Symlinking nvim to /usr/local/bin")
         if not Run(f"sudo ln -sf {nvim_path} /usr/local/bin/nvim"):
