@@ -22,12 +22,11 @@
   ],
   "modules-right": [
     "tray",
-    "taskbar",
-    "pulseaudio/slider",
+    "battery",
+    "custom/volume",
     "custom/bluetooth",
     "network",
     "custom/notification",
-    "battery",
     "custom/power"
   ],
   /* === Modules Left === */
@@ -38,7 +37,7 @@
   },
   "custom/power": {
     "format": "",
-    "on-click": "wlogout",
+    "on-click": "wlogout wlogout -b 6 -c 0 -r 1 -L 300 -R 300 -T 300 -B 300",
     "tooltip": false
   },
   "custom/bluetooth": {
@@ -91,50 +90,23 @@
     "disable-scroll": true,
     "all-outputs": false,
     "format": "{name}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "default": ""
-    },
   },
   /* === Modules Right === */
   "tray": {
-    "icon-size": 18,
+    "icon-size": 16,
     "spacing": 6,
     "show-passive-items": true
   },
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "all-outputs": true,
-    "active-first": true,
-    "tooltip-format": "{name}",
-    "on-click": "activate",
-    "on-click-middle": "close",
-    "ignore-list": [
-      "rofi"
-    ]
-  },
-  "pulseaudio/slider": {
-    "format": "{volume}%",
-    "format-muted": " MUTE",
-    "step": 5,
+  "custom/volume": {
+    "format": "",
+    "on-click": "kitty --class floating_tui wiremix",
     "tooltip": false
   },
-  "pulseaudio": {
-    "format": "{volume}% {icon}",
-    "format-muted": " {format_source}",
-    "format-icons": {
-      "default": [
-        "",
-        ""
-      ]
-    }
-  },
   "network": {
-    "format-wifi": "<span size='large'></span> {essid}",
-    "format-ethernet": "<span size='large'>󰈀</span>  Ethernet",
-    "format-linked": "<span size='large'>󰈀</span>{ifname} (No IP)",
-    "format-disconnected": "⚠ Disconnected",
+    "format-wifi": "",
+    "format-ethernet": "󰈀",
+    "format-linked": "󰈀",
+    "format-disconnected": "⚠",
     "tooltip-format": "  {ifname} via {gwaddr}",
     "tooltip-format-wifi": " {essid} ({signalStrength}%)",
     "tooltip-format-ethernet": " {ifname}: {ipaddr}/{cidr}",
@@ -147,11 +119,25 @@
     "format-charging": "{capacity}% 󱐋",
     "format-plugged": "{capacity}% ",
     "tooltip": true,
-    "tooltip-format": "{timeTo} — {capacity}%"
+    "tooltip-format": "{timeTo} — {capacity}%",
+    "format": "{capacity}% {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "events": {
+      "on-discharging-warning": "notify-send -u normal 'Low Battery'",
+      "on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
+      "on-charging-100": "notify-send -u normal 'Battery Full!'",
+      "on-discharging": "notify-send -u normal 'Power Switch' Discharging",
+      "on-charging": "notify-send -u normal 'Power Switch' Charging"
+    }
   },
   "custom/notification": {
     "tooltip": true,
-    "format": "<span size='large'>{icon}</span>",
+    "format": "{icon}",
     "format-icons": {
       "notification": "󱅫",
       "none": "󰂜",

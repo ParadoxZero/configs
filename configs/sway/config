@@ -24,6 +24,13 @@ smart_gaps on
 smart_borders on
 focus_on_window_activation focus
 
+# SWAYFX
+blur enable
+corner_radius 5
+shadows enable
+animation_duration_ms 50
+#end swayfx
+
 client.focused          #a6e3a1 #285577 #ffffff #61afef #a6e3a1
 client.unfocused        #333333 #222222 #888888 #292d2e #222222
 client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
@@ -85,7 +92,13 @@ for_window [app_id=".*"] opacity 0.95
 
 
 # Make some apps float by default
-for_window [class="VersaSecureAccessClient"] floating enable
+for_window [class="VersaSecureAccessClient"] {
+  floating enable
+  blur disable
+  corner_radius 0
+  shadows disable
+  animation_duration_ms 0
+}
 for_window [class="qbittorrent"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
