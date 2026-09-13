@@ -27,6 +27,9 @@ class Linux(OS):
     def get_libinput_gestures_path(self):
         return self.ConfigDir / "libinput-gestures.conf"
 
+    def get_quickshell_path(self):
+        return self.ConfigDir / "quickshell"
+
     def __toolchain_dir(self) -> Path:
         d = Path.home() / "toolchain"
         d.mkdir(exist_ok=True)
@@ -96,9 +99,19 @@ class Linux(OS):
             "pkg-config",
             "jq",
             "tree",
-            "tmux"
+            "tmux",
+            "quickshell",
+            "wl-clipboard",
+            "slurp",
+            "grim"
+        ]
+        ppa_list = [
+                "ppa:avengemedia/danklinux"
         ]
         output.Info("Installing dependencies ...Start")
+        for ppa in ppa_list:
+            if not Run("sudo add-apt-repository " + ppa):
+                return False
         if not Run("sudo apt update"):
             return False
         result = Run(f"sudo apt install {' '.join(deps)}")

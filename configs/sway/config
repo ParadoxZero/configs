@@ -19,16 +19,19 @@ set $menu 'XDG_CURRENT_DESKTOP=sway fuzzel --terminal=kitty --filter-desktop'
 
 # No titlebars, 2px border
 default_border pixel 1
-gaps inner 2
+gaps inner 5
 smart_gaps on
 smart_borders on
 focus_on_window_activation focus
 
 # SWAYFX
-blur enable
-corner_radius 5
-shadows enable
-animation_duration_ms 50
+animation_duration_ms 100
+
+layer_effects "waybar" {
+    blur enable;
+    blur_ignore_transparent enable;
+    corner_radius 20;
+}
 #end swayfx
 
 client.focused          #a6e3a1 #285577 #ffffff #61afef #a6e3a1
@@ -57,15 +60,13 @@ input "type:Mouse" {
 }
 
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec /usr/libexec/polkit-mate-authentication-agent-1
 
 exec swaync
 exec swayosd-server
-exec_always libinput-gestures
 exec_always python3 ~/.config/sway/sway-display-manager
 exec_always autotiling
-exec_always swtchr
 
 include /etc/sway/config-vars.d/*
 
@@ -87,26 +88,36 @@ exec swayidle -w \
 
 
 # Set global opacity for all windows (0.0 to 1.0)
-for_window [class=".*"] opacity 0.95
-for_window [app_id=".*"] opacity 0.95
+for_window [app_id=".*"] {
+  blur enable
+  opacity 0.8
+  corner_radius 10
+  shadows enable
+}
 
 
 # Make some apps float by default
-for_window [class="VersaSecureAccessClient"] {
+for_window [app_id="VersaSecureAccessClient"] {
   floating enable
   blur disable
   corner_radius 0
   shadows disable
   animation_duration_ms 0
 }
-for_window [class="qbittorrent"] floating enable
+for_window [app_id="qbittorrent"] floating enable
+for_window [app_id="nemo"] floating enable
+for_window [app_id="net.nokyan.Resources"] floating enable
+for_window [app_id="com.ktechpit.whatsie"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
 for_window [app_id="floating_tui"] {
     floating enable
+    blur enable
+    opacity 0.8
     resize set 1200 px 800 px
     move position center
     border pixel 5
+    shadows enable
 }
 
 ### Key bindings
@@ -121,7 +132,8 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Space exec $menu
     # Special key to take a screenshot with grim
     bindsym Print exec grim
-    bindsym $mod+p exec grim -g "$(slurp)" - | wl-copy
+    bindsym $mod+p exec grim -g "$(slurp)" - |  wl-copy
+    bindsym $mod+Shift+p exec grim -g "$(slurp)" 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -137,7 +149,7 @@ for_window [app_id="floating_tui"] {
     # Display profile: clear all profiles and re-enable all outputs
     bindsym $mod+Ctrl+Shift+d exec python3 ~/.config/sway/sway-display-manager --reset
     # Lock desktop
-    bindsym $mod+Shift+Escape exec swaylock 
+    bindsym $mod+Escape exec swaylock 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
@@ -145,6 +157,7 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Shift+Tab mode swtchr; exec swtchr
 
     bindsym $mod+c exec fuzzel -l 0 --placeholder "Enter your command" --dmenu | xargs -0 -r kitty --class floating_tui sh -c
+    bindsym $mod+shift+Escape exec flatpak run "net.nokyan.Resources"
 
     # This is important! More information below.
     mode swtchr bindsym Backspace mode default
@@ -180,12 +193,12 @@ for_window [app_id="floating_tui"] {
 # Workspaces:
 #
     # Switch to workspace
+    bindsym $mod+5 workspace number 5
     bindsym $mod+0 workspace number 10
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
     bindsym $mod+3 workspace number 3
     bindsym $mod+4 workspace number 4
-    bindsym $mod+5 workspace number 5
     bindsym $mod+6 workspace number 6
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8

@@ -32,6 +32,7 @@ if $nu.os-info.name == "linux" {
         "/opt/bin/"
         ($env.HOME | path join ".local" "bin")
         ($env.HOME | path join ".local" "share" "fnm")
+        ($env.HOME | path join "gems" "bin")
     ]
 } else if $nu.os-info.name == "windows" {
   [

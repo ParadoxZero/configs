@@ -8,8 +8,10 @@
   "gtk-layer-shell": true,
   /* === Modules Order === */
   "modules-left": [
-    "custom/waycal",
-    "clock",
+    "custom/archicon",
+    "custom/empty",
+    "sway/workspaces",
+    "custom/seperator",
     "cpu",
     "memory",
     "disk",
@@ -17,7 +19,9 @@
   ],
   "modules-center": [
     "idle_inhibitor",
-    "sway/workspaces",
+    "custom/waycal",
+    "clock",
+    "custom/notification",
     "sway/mode",
   ],
   "modules-right": [
@@ -26,18 +30,25 @@
     "custom/volume",
     "custom/bluetooth",
     "network",
-    "custom/notification",
     "custom/power"
   ],
   /* === Modules Left === */
   "custom/archicon": {
-    "format": "󱗼",
+    "format": "  ",
     "on-click": "fuzzel --terminal=kitty",
     "tooltip": false
   },
+  "custom/seperator": {
+    "format": "  ",
+    "tooltip": false
+  },
+  "custom/empty": {
+    "format": " ",
+    "tooltip": false
+  },
   "custom/power": {
-    "format": "",
-    "on-click": "wlogout wlogout -b 6 -c 0 -r 1 -L 300 -R 300 -T 300 -B 300",
+    "format": " ",
+    "on-click": "wlogout",
     "tooltip": false
   },
   "custom/bluetooth": {
@@ -47,7 +58,7 @@
   },
   "clock": {
     "format": "{:%I:%M %p | %d-%m-%y}",
-    "on-click": "xdg-open ${CALENDAR_URL:-https://outlook.cloud.microsoft/calendar/view/week}",
+    "on-click": "~/.config/waybar/waycal.sh",
     "tooltip": false
   },
   "custom/waycal": {
@@ -137,7 +148,7 @@
   },
   "custom/notification": {
     "tooltip": true,
-    "format": "{icon}",
+    "format": " {icon} ",
     "format-icons": {
       "notification": "󱅫",
       "none": "󰂜",

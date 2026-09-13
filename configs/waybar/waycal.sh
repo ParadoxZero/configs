@@ -3,6 +3,6 @@
 if pkill -x waycal; then
     echo '{"text": "", "class": ""}'
 else
-    waycal --position top-left &
+    waycal &
     echo '{"status": "active", "class": "active"}'
 fi

@@ -36,7 +36,7 @@
 
 window#waybar {
   /* background: alpha(@base, 0.1); */
-  background: alpha(@crust,0.4);
+  background: alpha(@crust,0.0);
 }
 
 #waybar > box {
@@ -52,14 +52,16 @@ window#waybar.hidden {
 }
 
 /* - Genera rules for visible modules -- */
-#clock,
-#custom-waycal,
+#custom-archicon,
+#workspaces,
+#custom-seperator,
 #cpu,
 #memory,
 #disk,
 #temperature,
 #idle_inhibitor,
-#workspaces,
+#clock,
+#custom-waycal,
 #tray,
 #pulseaudio,
 #pulseaudio-slider,
@@ -79,27 +81,54 @@ window#waybar.hidden {
   border-radius: 5px;
 }
 
-#custom-waycal {
-  background: @green;
+
+#custom-archicon {
+  margin-top:0px;
+  margin-bottom:0px;
+  margin-right:15px;
+  margin-left:0;
+  padding-left:10px;
+  padding-top:0px;
+  padding-bottom:0px;
+  font-size:24px;
+  background: @yellow;
   color: @text-dark;
+}
+
+#custom-empty {
+  background: @crust;
+  border-top-left-radius:10px;
+  border-bottom-left-radius:10px;
+  margin:0px;
+}
+
+#workspaces button {
+  background: @crust;
+  transition: text-shadow 0.3s ease, transform 0.3s ease;
+  border-radius:0px;
+  /* border-radius: 8px; */
+  /* margin-right:2px; */
+}
+
+#workspaces button:hover {
+  color: @lavender;
+   border-bottom: 1px solid @lavender;
+}
+
+#workspaces button.focused {
+  color: @sky;
+   border-bottom: 1px solid @sky;
+}
+
+#workspaces button.urgent {
+  color: @text-dark;
+  background: @red;
+}
+
+#custom-seperator {
+  background: @crust;
   border-radius: 0px;
 }
-
-#custom-waycal.activated {
-  background: @green;
-  color: @crust;
-}
-
-#clock {
-  font-size: 14px;
-  background: @surface0;
-  color: @green;
-  padding-left: 10px;
-  padding-right: 10px;
-  /* border-top-right-radius: 10px; */
-  /* border-bottom-right-radius: 10px; */
-}
-
 
 #cpu,
 #memory,
@@ -108,13 +137,15 @@ window#waybar.hidden {
   font-size: 14px;
   padding-left: 5px;
   padding-right: 5px;
+  background: @crust;
+  border-radius: 0px;
 }
 
 #cpu {
   /* border-top-left-radius: 10px; */
   /* border-bottom-left-radius: 10px; */
   color: @teal;
-  padding-left: 15px;
+  padding-left:15px;
 }
 
 #memory {
@@ -127,9 +158,9 @@ window#waybar.hidden {
 
 #temperature {
   color: @lavender;
-  /* border-top-right-radius: 8px; */
-  /* border-bottom-right-radius: 8px; */
   padding-right: 15px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 #idle_inhibitor {
@@ -145,40 +176,37 @@ window#waybar.hidden {
   color: @text-dark;
 }
 
-#workspaces {
-  color: @text;
-  /* border-radius: 10px; */
-}
-
-#workspaces button {
-  background: @crust;
-  transition: text-shadow 0.3s ease, transform 0.3s ease;
-  /* border-radius: 8px; */
-  margin-right:2px;
-  padding:5px;
-}
-
-#workspaces button:hover {
-  background: @overlay2;
+#custom-waycal {
+  background: @green;
   color: @text-dark;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
-#workspaces button.focused {
-  background: @yellow;
-  color: @text-dark;
+#clock {
+  font-size: 14px;
+  background: @green;
+  color: @crust;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 0px;
+  border-right: 1px groove @surface2;
 }
 
-#workspaces button.urgent {
-  background-color: @red;
+#custom-notification {
+  background: @green;
   color: @text-dark;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
+
 
 #tray {
-  background: @surface0;
-  border-radius: 5px;
+  background: @mantle;
+  border-radius: 10px;
   margin-right: 8px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 #tray > .passive {
@@ -191,51 +219,42 @@ window#waybar.hidden {
   /* border-radius: 8px; */
 }
 
-#battery {
-  font-size: 14px;
+#battery,
+#custom-volume,
+#custom-bluetooth,
+#network,
+#custom-power {
+  background: @surface0;
+  font-size: 24px;
   color: @text;
+  margin: 0px;
+  border-radius:0px;
+}
+
+#battery {
+  font-size: 18px;
   padding-left: 10px;
-  margin-right: 2px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px
 }
 
 #custom-volume {
-  color: @text;
   padding-right: 10px;
   padding-left: 10px;
-  margin-right: 2px;
 }
 #custom-bluetooth {
-  color: @text;
-  font-size: 18px;
   padding-right: 10px;
   padding-left: 10px;
-  margin-right: 2px;
-  /* border-top-left-radius: 10px; */
-  /* border-bottom-left-radius: 10px; */
 }
 
 #network {
-  color: @text;
   padding-right: 10px;
   padding-left: 10px;
-  margin-right: 2px;
-  /* margin-right: 5px; */
-  /* border-top-right-radius: 10px; */
-  /* border-bottom-right-radius: 10px; */
 }
-
-#custom-notification {
-  color: @text;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-right: 2px;
-  /* border-top-left-radius: 10px; */
-  /* border-bottom-left-radius: 10px; */
-}
-
 
 #custom-power {
-  color: @text;
   padding-left: 10px;
   padding-right: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
