@@ -32,6 +32,15 @@ layer_effects "waybar" {
     blur_ignore_transparent enable;
     corner_radius 20;
 }
+
+# Quickshell shortcuts panel (see ~/.config/quickshell)
+layer_effects "qs-shortcuts" {
+    blur enable;
+    corner_radius 20;
+}
+layer_effects "qs-allapps" {
+    blur enable;
+}
 #end swayfx
 
 client.focused          #a6e3a1 #285577 #ffffff #61afef #a6e3a1
@@ -67,6 +76,9 @@ exec swaync
 exec swayosd-server
 exec_always python3 ~/.config/sway/sway-display-manager
 exec_always autotiling
+# Shortcuts panel. -d daemonizes, -n is a no-op if it's already running,
+# so this survives a sway reload without spawning duplicates.
+exec_always qs -d -n
 
 include /etc/sway/config-vars.d/*
 

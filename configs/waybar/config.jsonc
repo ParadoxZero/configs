@@ -35,7 +35,7 @@
   /* === Modules Left === */
   "custom/archicon": {
     "format": "  ",
-    "on-click": "fuzzel --terminal=kitty",
+    "on-click": "qs ipc call shortcuts toggle",
     "tooltip": false
   },
   "custom/seperator": {
