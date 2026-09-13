@@ -41,7 +41,7 @@ PanelWindow {
 
     color: Config.panelBg
     radius: Config.radius
-    margin: Config.padding
+    margin: Config.qaMargin
 
     Column {
       spacing: Config.spacing
@@ -67,21 +67,12 @@ PanelWindow {
         onOpened: QuickActionsState.openBluetui()
       }
 
-      Row {
-        spacing: Config.spacing
-
-        QaPill {
-          icon: QuickActionsState.wifiOn ? "󰖩" : "󰖪"
-          label: "Wi-Fi"
-          active: QuickActionsState.wifiOn
-          onClicked: QuickActionsState.toggleWifi()
-        }
-
-        QaPill {
-          icon: "󰀂"
-          label: QuickActionsState.wifiOn ? QuickActionsState.networkName : "Offline"
-          clickable: false
-        }
+      QaComposite {
+        icon: QuickActionsState.wifiOn ? "󰖩" : "󰖪"
+        label: QuickActionsState.wifiOn ? QuickActionsState.networkName : "Wi-Fi"
+        active: QuickActionsState.wifiOn
+        onToggled: QuickActionsState.toggleWifi()
+        onOpened: QuickActionsState.openNetworkManager()
       }
 
       Row {

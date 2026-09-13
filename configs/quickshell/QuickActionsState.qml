@@ -42,6 +42,10 @@ Singleton {
     root.stub("wifi -> " + root.wifiOn);
   }
 
+  function openNetworkManager(): void {
+    root.stub("open network manager");
+  }
+
   function toggleMute(): void {
     root.muted = !root.muted;
     root.stub("muted -> " + root.muted);

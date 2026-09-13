@@ -26,7 +26,7 @@ PanelWindow {
     right: true
   }
 
-  color: Config.scrim
+  color: "transparent"
 
   // Click anywhere outside the grid to dismiss.
   MouseArea {

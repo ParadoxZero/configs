@@ -37,8 +37,8 @@ Singleton {
   readonly property color red: "#f38ba8"
 
   // Panel backgrounds are translucent so the swayfx layer blur shows through.
-  readonly property color panelBg: Qt.rgba(base.r, base.g, base.b, 0.93)
-  readonly property color scrim: Qt.rgba(0, 0, 0, 0.45)
+  readonly property color panelBg: Qt.rgba(base.r, base.g, base.b, 0.2)
+  readonly property color scrim: Qt.rgba(0, 0, 0, 0.1)
   readonly property color hover: Qt.rgba(surface0.r, surface0.g, surface0.b, 0.9)
 
   // --- Metrics ----------------------------------------------------------
@@ -52,12 +52,14 @@ Singleton {
   readonly property int radius: 20
   readonly property int tileRadius: 12
 
+
   // Quick actions grid: 1x1 cells are qaCell wide, 1x2 cells span two cells
   // plus the gap between them.
   readonly property int qaCell: 104
   readonly property int qaWide: qaCell * 2 + spacing
   readonly property int qaRowHeight: 48
   readonly property color accent: mauve
+  readonly property int qaMargin: 25
 
   // Distance from the screen edges. topMargin clears waybar (~35px) plus the
   // 5px sway inner gap; edgeMargin matches `gaps inner 5`.
