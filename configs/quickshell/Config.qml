@@ -36,6 +36,7 @@ Singleton {
   readonly property color text: "#cdd6f4"
   readonly property color subtext0: "#a6adc8"
   readonly property color mauve: "#cba6f7"
+  readonly property color green: "#a6e3a1"
   readonly property color red: "#f38ba8"
 
   // Panel backgrounds are translucent so the swayfx layer blur shows through.
@@ -60,7 +61,7 @@ Singleton {
   readonly property int qaCell: 104
   readonly property int qaWide: qaCell * 2 + spacing
   readonly property int qaRowHeight: 48
-  readonly property color accent: mauve
+  readonly property color accent: green
   readonly property int qaMargin: 25
 
   // Distance from the screen edges. topMargin clears waybar (~35px) plus the

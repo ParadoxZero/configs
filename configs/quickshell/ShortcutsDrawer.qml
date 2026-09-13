@@ -49,20 +49,22 @@ PanelWindow {
 
     Behavior on x {
       NumberAnimation {
-        duration: 300
-        easing.type: Easing.OutCubic
+        duration: 200
+        easing.type: Easing.OutSine
       }
-    }
-    Behavior on opacity {
-        NumberAnimation {
-            duration: 100
-        }
     }
 
     // Plain QtQuick positioners: QtQuick.Layouts is not part of the QML module
     // set bundled with the quickshell binary on this machine.
     Column {
       spacing: Config.spacing
+      opacity: win.visible? 1.0: 0.0
+      Behavior on opacity {
+          NumberAnimation {
+              duration: 300
+              easing.type: Easing.InQuint
+          }
+      }
 
       Grid {
         id: grid
@@ -102,7 +104,7 @@ PanelWindow {
         Text {
           anchors.centerIn: parent
           text: "󰀻  All apps"
-          color: Config.mauve
+          color: Config.accent
           font.family: Config.fontFamily
           font.pixelSize: 13
         }
