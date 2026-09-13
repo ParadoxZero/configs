@@ -27,19 +27,37 @@ PanelWindow {
   }
   margins {
     top: Config.topMargin
-    left: Config.edgeMargin
+    left: 0
   }
 
   color: "transparent"
   implicitWidth: card.implicitWidth
   implicitHeight: card.implicitHeight
 
+
   WrapperRectangle {
     id: card
 
     color: Config.panelBg
-    radius: Config.radius
+    topLeftRadius: 0
+    bottomLeftRadius:0
+    topRightRadius: Config.radius
+    bottomRightRadius: Config.radius
+    x: parent.visible ? 0 : -100
+    opacity: parent.visible? 1.0: 0.0
     margin: Config.padding
+
+    Behavior on x {
+      NumberAnimation {
+        duration: 300
+        easing.type: Easing.OutCubic
+      }
+    }
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 100
+        }
+    }
 
     // Plain QtQuick positioners: QtQuick.Layouts is not part of the QML module
     // set bundled with the quickshell binary on this machine.

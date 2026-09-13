@@ -47,7 +47,12 @@ PanelWindow {
 
     color: Config.panelBg
     radius: Config.radius
-
+    opacity: parent.visible ? 1.0 : 0.0
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 300
+        }
+    }
     // Swallow clicks on the panel itself so they don't hit the dismiss area.
     MouseArea {
       anchors.fill: parent

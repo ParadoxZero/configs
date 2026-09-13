@@ -17,12 +17,14 @@ Singleton {
     "dev.zed.Zed",
     "code",
     "com.slack.Slack",
+    "discord",
     "md.obsidian.Obsidian",
-    "com.discordapp.Discord",
+    "org.qbittorrent.qBittorrent",
     "com.ktechpit.whatsie",
     "com.bitwarden.desktop",
     "net.nokyan.Resources",
-    "vlc"
+    "vlc",
+    "org.gnome.Software"
   ]
 
   // --- Palette ----------------------------------------------------------
@@ -49,7 +51,7 @@ Singleton {
   readonly property int labelSize: 11
   readonly property int spacing: 6
   readonly property int padding: 12
-  readonly property int radius: 20
+  readonly property int radius: 50
   readonly property int tileRadius: 12
 
 

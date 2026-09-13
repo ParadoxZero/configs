@@ -35,8 +35,10 @@ layer_effects "waybar" {
 
 # Quickshell shortcuts panel (see ~/.config/quickshell)
 layer_effects "qs-shortcuts" {
+    opacity 0.2
     blur enable;
-    corner_radius 20;
+    blur_ignore_transparent enable;
+    corner_radius 0;
 }
 layer_effects "qs-allapps" {
     blur enable;
