@@ -11,11 +11,15 @@
     "custom/archicon",
     "custom/empty",
     "sway/workspaces",
-    "custom/seperator",
+    "custom/empty2",
     "cpu",
     "memory",
     "disk",
     "temperature",
+    "custom/mediaprev",
+    "custom/mediatoggle",
+    "custom/medianext",
+    "custom/mediatitle",
   ],
   "modules-center": [
     "idle_inhibitor",
@@ -25,16 +29,17 @@
     "sway/mode",
   ],
   "modules-right": [
+  
     "tray",
+    "custom/empty",
     "battery",
     "custom/volume",
     "custom/bluetooth",
     "network",
     "custom/power"
   ],
-  /* === Modules Left === */
   "custom/archicon": {
-    "format": "  ",
+    "format": "  ",
     "on-click": "qs ipc call shortcuts toggle",
     "tooltip": false
   },
@@ -43,6 +48,10 @@
     "tooltip": false
   },
   "custom/empty": {
+    "format": " ",
+    "tooltip": false
+  },
+  "custom/empty2": {
     "format": " ",
     "tooltip": false
   },
@@ -96,17 +105,56 @@
       ""
     ]
   },
-  /* === Modules Center === */
   "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": false,
     "format": "{name}",
   },
-  /* === Modules Right === */
+  "custom/mediaprev": {
+    "return-type": "json",
+    "exec-if": "which playerctl",
+    "exec": "~/.config/waybar/mediaplayer.py prev",
+    "restart-interval": 5,
+    "on-click": "playerctl previous",
+    "tooltip": false,
+    "escape": true
+  },
+  "custom/mediatoggle": {
+    "return-type": "json",
+    "exec-if": "which playerctl",
+    "exec": "~/.config/waybar/mediaplayer.py toggle",
+    "restart-interval": 5,
+    "on-click": "playerctl play-pause",
+    "tooltip": false,
+    "escape": true
+  },
+  "custom/medianext": {
+    "return-type": "json",
+    "exec-if": "which playerctl",
+    "exec": "~/.config/waybar/mediaplayer.py next",
+    "restart-interval": 5,
+    "on-click": "playerctl next",
+    "tooltip": false,
+    "escape": true
+  },
+  "custom/mediatitle": {
+    "return-type": "json",
+    "exec-if": "which playerctl",
+    "exec": "~/.config/waybar/mediaplayer.py title",
+    "restart-interval": 5,
+    "max-length": 50,
+    "tooltip": true,
+    "escape": true
+  },
   "tray": {
     "icon-size": 16,
     "spacing": 6,
     "show-passive-items": true
+  },
+  "custom/cava": {
+      "format": "{}",
+      "exec": "cava",
+      "restart-interval": 1
   },
   "custom/volume": {
     "format": "",

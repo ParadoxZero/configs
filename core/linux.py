@@ -103,7 +103,9 @@ class Linux(OS):
             "quickshell",
             "wl-clipboard",
             "slurp",
-            "grim"
+            "grim",
+            "playerctl",
+            "cava"
         ]
         ppa_list = [
                 "ppa:avengemedia/danklinux"
