@@ -98,7 +98,7 @@ bindswitch --reload lid:off output eDP-1 enable
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' 
+         timeout 300 'gtklock -d' 
 
 
 # Set global opacity for all windows (0.0 to 1.0)
@@ -121,6 +121,7 @@ for_window [app_id="qbittorrent"] floating enable
 for_window [app_id="nemo"] floating enable
 for_window [app_id="net.nokyan.Resources"] floating enable
 for_window [app_id="com.ktechpit.whatsie"] floating enable
+for_window [app_id="chrome-nngceckbapebfimnlniiiahkandclblb-Default"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
 for_window [app_id="floating_tui"] {
@@ -162,7 +163,7 @@ for_window [app_id="floating_tui"] {
     # Display profile: clear all profiles and re-enable all outputs
     bindsym $mod+Ctrl+Shift+d exec python3 ~/.config/sway/sway-display-manager --reset
     # Lock desktop
-    bindsym $mod+Escape exec swaylock 
+    bindsym $mod+Escape exec gtklock -d 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 

@@ -30,6 +30,9 @@ class Linux(OS):
     def get_quickshell_path(self):
         return self.ConfigDir / "quickshell"
 
+    def get_gtklock_path(self):
+        return self.ConfigDir / "gtklock"
+
     def __toolchain_dir(self) -> Path:
         d = Path.home() / "toolchain"
         d.mkdir(exist_ok=True)
@@ -105,7 +108,8 @@ class Linux(OS):
             "slurp",
             "grim",
             "playerctl",
-            "cava"
+            "cava",
+            "gtklock"
         ]
         ppa_list = [
                 "ppa:avengemedia/danklinux"
