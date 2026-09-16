@@ -111,9 +111,9 @@ for_window [app_id=".*"] {
 
 
 # Make some apps float by default
-for_window [app_id="VersaSecureAccessClient"] {
+for_window [class="VersaSecureAccessClient"] {
   floating enable
-  blur disable
+  blur enable
   corner_radius 10
   shadows disable
 }
@@ -122,6 +122,7 @@ for_window [app_id="nemo"] floating enable
 for_window [app_id="net.nokyan.Resources"] floating enable
 for_window [app_id="com.ktechpit.whatsie"] floating enable
 for_window [app_id="chrome-nngceckbapebfimnlniiiahkandclblb-Default"] floating enable
+for_window [title="Picture in picture"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
 for_window [app_id="floating_tui"] {
