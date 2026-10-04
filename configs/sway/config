@@ -15,7 +15,11 @@ set $up k
 set $right l
 
 set $term kitty
+set $browser firefox
+set $explorer nemo
 set $menu 'XDG_CURRENT_DESKTOP=sway fuzzel --terminal=kitty --filter-desktop'
+
+set $opacity 0.8
 
 # No titlebars, 2px border
 default_border pixel 1
@@ -23,6 +27,7 @@ gaps inner 5
 smart_gaps on
 smart_borders on
 focus_on_window_activation focus
+workspace_auto_back_and_forth yes
 
 # SWAYFX
 animation_duration_ms 100
@@ -73,6 +78,7 @@ input "type:Mouse" {
 exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec /usr/libexec/polkit-mate-authentication-agent-1
+exec wl-paste --watch cliphist store
 
 exec swaync
 exec swayosd-server
@@ -81,6 +87,10 @@ exec autotiling
 # Shortcuts panel. -d daemonizes, -n is a no-op if it's already running,
 # so this survives a sway reload without spawning duplicates.
 exec qs -d -n
+
+### Idle configuration
+exec swayidle -w \
+         timeout 300 'gtklock -d' 
 
 include /etc/sway/config-vars.d/*
 
@@ -93,22 +103,13 @@ output * bg ~/wallpaper/current fill
 bindswitch --reload lid:on  output eDP-1 disable, exec ~/.config/sway/lid-suspend
 bindswitch --reload lid:off output eDP-1 enable
 
-### Idle configuration
-#
-# Example configuration:
-#
-exec swayidle -w \
-         timeout 300 'gtklock -d' 
-
-
 # Set global opacity for all windows (0.0 to 1.0)
 for_window [app_id=".*"] {
   blur enable
-  opacity 0.8
+  opacity $opacity
   corner_radius 10
   shadows enable
 }
-
 
 # Make some apps float by default
 for_window [class="VersaSecureAccessClient"] {
@@ -117,18 +118,21 @@ for_window [class="VersaSecureAccessClient"] {
   corner_radius 10
   shadows disable
 }
+
+# Specific window floating override
 for_window [app_id="qbittorrent"] floating enable
 for_window [app_id="nemo"] floating enable
 for_window [app_id="net.nokyan.Resources"] floating enable
 for_window [app_id="com.ktechpit.whatsie"] floating enable
 for_window [app_id="chrome-nngceckbapebfimnlniiiahkandclblb-Default"] floating enable
 for_window [title="Picture in picture"] floating enable
+for_window [title="Extension:.*Bitwarden.*"] floating enable
 
 # Make the tagged nmtui window float, resize it, and center it
 for_window [app_id="floating_tui"] {
     floating enable
     blur enable
-    opacity 0.8
+    opacity $opacity
     resize set 1200 px 800 px
     move position center
     border pixel 5
@@ -141,6 +145,8 @@ for_window [app_id="floating_tui"] {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+b exec $browser
+    bindsym $mod+e exec $explorer
     # Kill focused window
     bindsym $mod+q kill
     # Start your launcher
@@ -163,19 +169,20 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Shift+d exec $term --class floating_tui python3 ~/.config/sway/sway-display-manager --edit
     # Display profile: clear all profiles and re-enable all outputs
     bindsym $mod+Ctrl+Shift+d exec python3 ~/.config/sway/sway-display-manager --reset
+    #clipboard history
+    bindsym Ctrl+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
     # Lock desktop
     bindsym $mod+Escape exec gtklock -d 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-
-    bindsym $mod+Tab mode swtchr; exec swtchr
-    bindsym $mod+Shift+Tab mode swtchr; exec swtchr
+    bindsym $mod+Shift+e exec printf "lock\nsuspend\nreboot\nshutdown\nlogout" | fuzzel --dmenu | xargs -I{} sh -c 'case {} in lock) gtklock -d;; suspend) systemctl suspend;; reboot) systemctl reboot;; shutdown) systemctl poweroff;; logout) swaymsg exit;; esac'
 
     bindsym $mod+c exec fuzzel -l 0 --placeholder "Enter your command" --dmenu | xargs -0 -r kitty --class floating_tui sh -c
     bindsym $mod+shift+Escape exec flatpak run "net.nokyan.Resources"
 
-    # This is important! More information below.
-    mode swtchr bindsym Backspace mode default
+    #opacity override
+    bindsym $mod+o opacity set 1
+    bindsym $mod+Shift+o opacity set $opacity
+
     
     # Notifications
     bindsym $mod+Shift+n exec swaync-client -t -sw
@@ -204,6 +211,9 @@ for_window [app_id="floating_tui"] {
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+    # Floating window stays visible across workspace switches
+    bindsym $mod+Shift+t sticky toggle
 #
 # Workspaces:
 #
@@ -239,14 +249,18 @@ for_window [app_id="floating_tui"] {
     # Cycle to the previous active workspace (creates new one at boundary)
     bindsym $mod+Ctrl+h exec ~/.config/sway/workspace_prev.sh
     bindsym $mod+a exec ~/.config/sway/workspace_prev.sh
+
+    # Go to last workspace
+    bindsym $mod+grave workspace back_and_forth
+
+    
+    # Send the monitor's whole workspace to another display
+    bindsym $mod+Alt+Left  move workspace to output left
+    bindsym $mod+Alt+Right move workspace to output right
 #
 # Layout stuff:
 #
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym $mod+v split toggle
 
     # Switch the current container between different layout styles
     bindsym $mod+Shift+s layout stacking
@@ -303,25 +317,27 @@ bindsym $mod+r mode "resize"
 #
 # Utilities:
 #
-# Special keys to adjust volume via PulseAudio
-# Sink volume raise optionally with --device
-bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
-# Sink volume lower optionally with --device
-bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume lower 
-# Sink volume toggle mute
-bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-# Source volume toggle mute
-bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
-# Capslock (If you don't want to use the backend)
-bindsym --release Caps_Lock exec swayosd-client --caps-lock
-# Brightness raise (optionally with --device, can be device name or wildcard)
-bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise 
-# Brightness lower (optionally with --device, can be device name or wildcard)
-bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower 
-# Play/Pause current player
-bindsym XF86AudioPlay exec swayosd-client --playerctl play-pause
-# Next song for current player
-bindsym XF86AudioNext exec swayosd-client --playerctl next
+    # Special keys to adjust volume via PulseAudio
+    # Sink volume raise optionally with --device
+    bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+    # Sink volume lower optionally with --device
+    bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume lower 
+    # Sink volume toggle mute
+    bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
+    # Source volume toggle mute
+    bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+    # Capslock (If you don't want to use the backend)
+    bindsym --release Caps_Lock exec swayosd-client --caps-lock
+    # Brightness raise (optionally with --device, can be device name or wildcard)
+    bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise 
+    # Brightness lower (optionally with --device, can be device name or wildcard)
+    bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower 
+    # Play/Pause current player
+    bindsym XF86AudioPlay exec swayosd-client --playerctl play-pause
+    # Next song for current player
+    bindsym XF86AudioNext exec swayosd-client --playerctl next
+    # Previous song
+    bindsym XF86AudioPrev exec swayosd-client --playerctl previous
 
 #
 # Status Bar:

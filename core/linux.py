@@ -105,6 +105,7 @@ class Linux(OS):
             "tmux",
             "quickshell",
             "wl-clipboard",
+            "cliphist",
             "slurp",
             "grim",
             "playerctl",
