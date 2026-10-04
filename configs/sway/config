@@ -112,7 +112,7 @@ for_window [app_id=".*"] {
 }
 
 # Make some apps float by default
-for_window [class="VersaSecureAccessClient"] {
+for_window [app_id="VersaSecureAccessClient"] {
   floating enable
   blur enable
   corner_radius 10
@@ -170,7 +170,7 @@ for_window [app_id="floating_tui"] {
     # Display profile: clear all profiles and re-enable all outputs
     bindsym $mod+Ctrl+Shift+d exec python3 ~/.config/sway/sway-display-manager --reset
     #clipboard history
-    bindsym Ctrl+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
+    bindsym $mod+Shift+v exec cliphist list | fuzzel --dmenu | cliphist decode | wl-copy
     # Lock desktop
     bindsym $mod+Escape exec gtklock -d 
     # Exit sway (logs you out of your Wayland session)
@@ -262,10 +262,10 @@ for_window [app_id="floating_tui"] {
 #
     bindsym $mod+v split toggle
 
-    # Switch the current container between different layout styles
-    bindsym $mod+Shift+s layout stacking
-    bindsym $mod+Shift+w layout tabbed
-    bindsym $mod+Shift+v layout toggle split
+    # # Switch the current container between different layout styles
+    # bindsym $mod+Shift+s layout stacking
+    # bindsym $mod+Shift+w layout tabbed
+    # bindsym $mod+Shift+v layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
