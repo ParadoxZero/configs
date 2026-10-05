@@ -112,11 +112,12 @@ for_window [app_id=".*"] {
 }
 
 # Make some apps float by default
-for_window [app_id="VersaSecureAccessClient"] {
+for_window [title="SASE Client"] {
   floating enable
   blur enable
+  opacity $opacity
   corner_radius 10
-  shadows disable
+  shadows enable
 }
 
 # Specific window floating override
